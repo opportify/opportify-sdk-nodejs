@@ -1,0 +1,41 @@
+{
+  "name": "@opportify/sdk-nodejs",
+  "author": "Opportify, INC.",
+  "description": "Opportify SDK for NodeJs",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/esm/src/index.d.ts",
+  "main": "./dist/cjs/src/index.js",
+  "module": "./dist/esm/src/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/src/index.d.ts",
+      "require": "./dist/cjs/src/index.js",
+      "import": "./dist/esm/src/index.js",
+      "default": "./dist/esm/src/index.js"
+    }
+  },
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json",
+    "build:cjs": "tsc -b ./tsconfig.cjs.json",
+    "build:es": "tsc -b ./tsconfig.esm.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.3",
+    "@types/node-fetch": "^2.6.12",
+    "@types/request": "^2.48.12",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
