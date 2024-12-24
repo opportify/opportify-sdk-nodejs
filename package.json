@@ -1,9 +1,23 @@
 {
   "name": "@opportify/sdk-nodejs",
-  "author": "Opportify, INC.",
+  "author": "Opportify, Inc.",
   "description": "Opportify SDK for NodeJs",
   "version": "1.0.0",
   "license": "Apache-2.0",
+  "repository": "opportify/opportify-sdk-nodejs",
+  "homepage": "https://github.com/opportify/opportify-sdk-nodejs",
+  "keywords": [
+    "opportify",
+    "nodejs",
+    "api",
+    "email",
+    "ip",
+    "insights",
+    "ai"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -22,7 +36,8 @@
     "dist": "dist"
   },
   "files": [
-    "./dist"
+    "./dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json",

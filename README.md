@@ -15,7 +15,7 @@ https://api.opportify.ai/insights/v1/<service>/<endpoint>
 
 ## Requirements
 
-Recommended Node version[22.x.x](https://nodejs.org/en/blog/release/v22.11.0). It is also compatible with +v18.0.
+Recommended Node version [22.x.x](https://nodejs.org/en/blog/release/v22.11.0). It is also compatible with +v18 .
 
 ## Getting Started
 
