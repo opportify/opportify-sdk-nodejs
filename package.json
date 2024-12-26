@@ -4,7 +4,10 @@
   "description": "Opportify SDK for NodeJs",
   "version": "1.0.0",
   "license": "Apache-2.0",
-  "repository": "opportify/opportify-sdk-nodejs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opportify/opportify-sdk-nodejs.git"
+  },
   "homepage": "https://github.com/opportify/opportify-sdk-nodejs",
   "keywords": [
     "opportify",
