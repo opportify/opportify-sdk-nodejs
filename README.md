@@ -38,7 +38,7 @@ const emailInsights = new EmailInsights({
 emailInsights.analyze({
   email: 'your-test@email.domain.com',
   enableAutoCorrection: true,
-  enableAI: true
+  enableAI: true // only available for paid plans.
 }).then(response => {
   console.log(response);  
 }).catch(error => {
@@ -57,8 +57,8 @@ const ipInsights = new IPInsights({
 });
 
 ipInsights.analyze({
-  ip: '3.1.122.82',
-  enableAI: true
+  ip: '8.8.8.8',
+  enableAI: true // only available for paid plans.
 }).then(response => {
   console.log(response);  
 }).catch(error => {
