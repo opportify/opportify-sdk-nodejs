@@ -14,76 +14,60 @@
 
 import { mapValues } from '../runtime';
 /**
- * Autonomous System Number details.
+ * 
  * @export
- * @interface Asn
+ * @interface INVALIDTOKEN
  */
-export interface Asn {
+export interface INVALIDTOKEN {
     /**
-     * ASN identifier.
+     * 
      * @type {string}
-     * @memberof Asn
+     * @memberof INVALIDTOKEN
      */
-    asnId?: string;
+    message?: string;
     /**
-     * ASN name.
+     * 
      * @type {string}
-     * @memberof Asn
+     * @memberof INVALIDTOKEN
      */
-    asName?: string;
-    /**
-     * ASN description. It might return different values based on the data source. Some provide ownership, address, others provide a more abstract description. Our system tries to sanitize removing visual blocks special characters (+++, ---, ...).
-     * @type {Array<string>}
-     * @memberof Asn
-     */
-    descr?: Array<string>;
-    /**
-     * Previously sanitized and validated contact email addresses always in lower case.
-     * @type {Array<string>}
-     * @memberof Asn
-     */
-    email?: Array<string>;
+    code?: string;
 }
 
 /**
- * Check if a given object implements the Asn interface.
+ * Check if a given object implements the INVALIDTOKEN interface.
  */
-export function instanceOfAsn(value: object): value is Asn {
+export function instanceOfINVALIDTOKEN(value: object): value is INVALIDTOKEN {
     return true;
 }
 
-export function AsnFromJSON(json: any): Asn {
-    return AsnFromJSONTyped(json, false);
+export function INVALIDTOKENFromJSON(json: any): INVALIDTOKEN {
+    return INVALIDTOKENFromJSONTyped(json, false);
 }
 
-export function AsnFromJSONTyped(json: any, ignoreDiscriminator: boolean): Asn {
+export function INVALIDTOKENFromJSONTyped(json: any, ignoreDiscriminator: boolean): INVALIDTOKEN {
     if (json == null) {
         return json;
     }
     return {
         
-        'asnId': json['asnId'] == null ? undefined : json['asnId'],
-        'asName': json['asName'] == null ? undefined : json['asName'],
-        'descr': json['descr'] == null ? undefined : json['descr'],
-        'email': json['email'] == null ? undefined : json['email'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'code': json['code'] == null ? undefined : json['code'],
     };
 }
 
-export function AsnToJSON(json: any): Asn {
-    return AsnToJSONTyped(json, false);
+export function INVALIDTOKENToJSON(json: any): INVALIDTOKEN {
+    return INVALIDTOKENToJSONTyped(json, false);
 }
 
-export function AsnToJSONTyped(value?: Asn | null, ignoreDiscriminator: boolean = false): any {
+export function INVALIDTOKENToJSONTyped(value?: INVALIDTOKEN | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'asnId': value['asnId'],
-        'asName': value['asName'],
-        'descr': value['descr'],
-        'email': value['email'],
+        'message': value['message'],
+        'code': value['code'],
     };
 }
 
