@@ -12,78 +12,62 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import type { INVALIDPLAN } from './INVALIDPLAN';
+import {
+    instanceOfINVALIDPLAN,
+    INVALIDPLANFromJSON,
+    INVALIDPLANFromJSONTyped,
+    INVALIDPLANToJSON,
+} from './INVALIDPLAN';
+import type { INVALIDTOKEN } from './INVALIDTOKEN';
+import {
+    instanceOfINVALIDTOKEN,
+    INVALIDTOKENFromJSON,
+    INVALIDTOKENFromJSONTyped,
+    INVALIDTOKENToJSON,
+} from './INVALIDTOKEN';
+
 /**
- * Autonomous System Number details.
+ * @type AnalyzeEmail403ResponseError
+ * 
  * @export
- * @interface Asn
  */
-export interface Asn {
-    /**
-     * ASN identifier.
-     * @type {string}
-     * @memberof Asn
-     */
-    asnId?: string;
-    /**
-     * ASN name.
-     * @type {string}
-     * @memberof Asn
-     */
-    asName?: string;
-    /**
-     * ASN description. It might return different values based on the data source. Some provide ownership, address, others provide a more abstract description. Our system tries to sanitize removing visual blocks special characters (+++, ---, ...).
-     * @type {Array<string>}
-     * @memberof Asn
-     */
-    descr?: Array<string>;
-    /**
-     * Previously sanitized and validated contact email addresses always in lower case.
-     * @type {Array<string>}
-     * @memberof Asn
-     */
-    email?: Array<string>;
+export type AnalyzeEmail403ResponseError = INVALIDPLAN | INVALIDTOKEN;
+
+export function AnalyzeEmail403ResponseErrorFromJSON(json: any): AnalyzeEmail403ResponseError {
+    return AnalyzeEmail403ResponseErrorFromJSONTyped(json, false);
 }
 
-/**
- * Check if a given object implements the Asn interface.
- */
-export function instanceOfAsn(value: object): value is Asn {
-    return true;
-}
-
-export function AsnFromJSON(json: any): Asn {
-    return AsnFromJSONTyped(json, false);
-}
-
-export function AsnFromJSONTyped(json: any, ignoreDiscriminator: boolean): Asn {
+export function AnalyzeEmail403ResponseErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyzeEmail403ResponseError {
     if (json == null) {
         return json;
     }
-    return {
-        
-        'asnId': json['asnId'] == null ? undefined : json['asnId'],
-        'asName': json['asName'] == null ? undefined : json['asName'],
-        'descr': json['descr'] == null ? undefined : json['descr'],
-        'email': json['email'] == null ? undefined : json['email'],
-    };
+    if (instanceOfINVALIDPLAN(json)) {
+        return INVALIDPLANFromJSONTyped(json, true);
+    }
+    if (instanceOfINVALIDTOKEN(json)) {
+        return INVALIDTOKENFromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function AsnToJSON(json: any): Asn {
-    return AsnToJSONTyped(json, false);
+export function AnalyzeEmail403ResponseErrorToJSON(json: any): any {
+    return AnalyzeEmail403ResponseErrorToJSONTyped(json, false);
 }
 
-export function AsnToJSONTyped(value?: Asn | null, ignoreDiscriminator: boolean = false): any {
+export function AnalyzeEmail403ResponseErrorToJSONTyped(value?: AnalyzeEmail403ResponseError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
-    return {
-        
-        'asnId': value['asnId'],
-        'asName': value['asName'],
-        'descr': value['descr'],
-        'email': value['email'],
-    };
+    if (instanceOfINVALIDPLAN(value)) {
+        return INVALIDPLANToJSON(value as INVALIDPLAN);
+    }
+    if (instanceOfINVALIDTOKEN(value)) {
+        return INVALIDTOKENToJSON(value as INVALIDTOKEN);
+    }
+
+    return {};
 }
 

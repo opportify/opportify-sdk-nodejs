@@ -13,77 +13,61 @@
  */
 
 import { mapValues } from '../runtime';
+import type { AnalyzeEmail403ResponseError } from './AnalyzeEmail403ResponseError';
+import {
+    AnalyzeEmail403ResponseErrorFromJSON,
+    AnalyzeEmail403ResponseErrorFromJSONTyped,
+    AnalyzeEmail403ResponseErrorToJSON,
+    AnalyzeEmail403ResponseErrorToJSONTyped,
+} from './AnalyzeEmail403ResponseError';
+
 /**
- * Autonomous System Number details.
+ * 
  * @export
- * @interface Asn
+ * @interface AnalyzeEmail403Response
  */
-export interface Asn {
+export interface AnalyzeEmail403Response {
     /**
-     * ASN identifier.
-     * @type {string}
-     * @memberof Asn
+     * 
+     * @type {AnalyzeEmail403ResponseError}
+     * @memberof AnalyzeEmail403Response
      */
-    asnId?: string;
-    /**
-     * ASN name.
-     * @type {string}
-     * @memberof Asn
-     */
-    asName?: string;
-    /**
-     * ASN description. It might return different values based on the data source. Some provide ownership, address, others provide a more abstract description. Our system tries to sanitize removing visual blocks special characters (+++, ---, ...).
-     * @type {Array<string>}
-     * @memberof Asn
-     */
-    descr?: Array<string>;
-    /**
-     * Previously sanitized and validated contact email addresses always in lower case.
-     * @type {Array<string>}
-     * @memberof Asn
-     */
-    email?: Array<string>;
+    error?: AnalyzeEmail403ResponseError;
 }
 
 /**
- * Check if a given object implements the Asn interface.
+ * Check if a given object implements the AnalyzeEmail403Response interface.
  */
-export function instanceOfAsn(value: object): value is Asn {
+export function instanceOfAnalyzeEmail403Response(value: object): value is AnalyzeEmail403Response {
     return true;
 }
 
-export function AsnFromJSON(json: any): Asn {
-    return AsnFromJSONTyped(json, false);
+export function AnalyzeEmail403ResponseFromJSON(json: any): AnalyzeEmail403Response {
+    return AnalyzeEmail403ResponseFromJSONTyped(json, false);
 }
 
-export function AsnFromJSONTyped(json: any, ignoreDiscriminator: boolean): Asn {
+export function AnalyzeEmail403ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyzeEmail403Response {
     if (json == null) {
         return json;
     }
     return {
         
-        'asnId': json['asnId'] == null ? undefined : json['asnId'],
-        'asName': json['asName'] == null ? undefined : json['asName'],
-        'descr': json['descr'] == null ? undefined : json['descr'],
-        'email': json['email'] == null ? undefined : json['email'],
+        'error': json['error'] == null ? undefined : AnalyzeEmail403ResponseErrorFromJSON(json['error']),
     };
 }
 
-export function AsnToJSON(json: any): Asn {
-    return AsnToJSONTyped(json, false);
+export function AnalyzeEmail403ResponseToJSON(json: any): AnalyzeEmail403Response {
+    return AnalyzeEmail403ResponseToJSONTyped(json, false);
 }
 
-export function AsnToJSONTyped(value?: Asn | null, ignoreDiscriminator: boolean = false): any {
+export function AnalyzeEmail403ResponseToJSONTyped(value?: AnalyzeEmail403Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'asnId': value['asnId'],
-        'asName': value['asName'],
-        'descr': value['descr'],
-        'email': value['email'],
+        'error': AnalyzeEmail403ResponseErrorToJSON(value['error']),
     };
 }
 
