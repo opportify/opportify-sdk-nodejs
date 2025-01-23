@@ -16,7 +16,7 @@ export class EmailInsights {
 
   public async analyze (request: AnalyzeEmailRequest) {
     try {
-        return this.emailInsightsApi.analyzeEmail({
+        return await this.emailInsightsApi.analyzeEmail({
             analyzeEmailRequest: {
                 email: request.email,
                 enableAutoCorrection: request.enableAutoCorrection,

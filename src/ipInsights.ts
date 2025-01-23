@@ -16,7 +16,7 @@ export class IPInsights {
 
   public async analyze (request: AnalyzeIpRequest) {
     try {
-        return this.ipInsightsApi.analyzeIp({
+        return await this.ipInsightsApi.analyzeIp({
             analyzeIpRequest: {
                 ip: request.ip,
                 enableAI: request.enableAI,
