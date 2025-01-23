@@ -1,12 +1,7 @@
 import { IPInsightsApi } from '../lib/v1/apis/IPInsightsApi';
 import { AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
 import { Configuration } from '../lib/v1/runtime';
-
-export type IPInsightsConfiguration = {
-    apiKey: string;
-    version: string;
-    basePath?: string;
-};
+import { ErrorResponse } from './types';
 
 export class IPInsights {
   private ipInsightsApi: IPInsightsApi;
@@ -20,11 +15,16 @@ export class IPInsights {
   }
 
   public async analyze (request: AnalyzeIpRequest) {
-    return this.ipInsightsApi.analyzeIp({
-        analyzeIpRequest: {
-            ip: request.ip,
-            enableAI: request.enableAI,
-        }
-    });
+    try {
+        return await this.ipInsightsApi.analyzeIp({
+            analyzeIpRequest: {
+                ip: request.ip,
+                enableAI: request.enableAI,
+            }
+        });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
   };
 }
