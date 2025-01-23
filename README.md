@@ -28,42 +28,52 @@ npm install --save @opportify/sdk-nodejs
 ### Calling Email Insights
 
 ```
-const { EmailInsights } = require('@opportify/sdk-nodejs');
+import { EmailInsights } from '@opportify/sdk-nodejs';
 
-const emailInsights = new EmailInsights({ 
+const clientEmailInsights = new EmailInsights({
   version: '1.0',
-  apiKey: 'YOUR-API-KEY-HERE'
+  apiKey: 'YOUR_API_KEY'
 });
 
-emailInsights.analyze({
-  email: 'your-test@email.domain.com',
-  enableAutoCorrection: true,
-  enableAI: true // only available for paid plans.
-}).then(response => {
-  console.log(response);  
-}).catch(error => {
-  console.error(error);
-});
+async function analyzeEmail() {
+  try {
+    const response = await clientEmailInsights.analyze({
+      email: "email_to_validate@domain.com",
+      enableAutoCorrection: true,
+      enableAI: true, // only available on paid plans.
+    });
+    console.log('response', response);
+  } catch (error: unknown) {
+    console.error('error', error);
+  }
+}
+
+analyzeEmail();
 ```
 
 ### Calling IP Insights
 
 ```
-const { IPInsights } = require('@opportify/sdk-nodejs');
+import { IPInsights } from '@opportify/sdk-nodejs';
 
-const ipInsights = new IPInsights({ 
+const clientIpInsights = new IPInsights({ 
   version: '1.0',
   apiKey: 'YOUR-API-KEY-HERE'
 });
 
-ipInsights.analyze({
-  ip: '8.8.8.8',
-  enableAI: true // only available for paid plans.
-}).then(response => {
-  console.log(response);  
-}).catch(error => {
-  console.error(error);
-});
+async function analyzeIP() {
+  try {
+    const response = await clientIpInsights.analyze({
+      ip: '8.8.8.8',
+      enableAI: true // only available for paid plans.
+    });
+    console.log('response', response);
+  } catch (error: unknown) {
+    console.error('error', error);
+  }
+}
+
+analyzeIP();
 ```
 
 ## About this package

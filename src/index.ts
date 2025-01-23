@@ -1,4 +1,6 @@
-export { type EmailInsightsConfiguration, EmailInsights } from './emailInsights';
+export { EmailInsights } from './emailInsights';
 export { type AnalyzeEmailRequest } from '../lib/v1/models/AnalyzeEmailRequest';
-export { type IPInsightsConfiguration, IPInsights } from './ipInsights';
+export { IPInsights } from './ipInsights';
 export { type AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
+export { type Configuration } from '../lib/v1/runtime';
+export { type ErrorResponse } from './types';

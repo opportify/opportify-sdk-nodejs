@@ -1,12 +1,7 @@
+import { ErrorResponse } from './types';
 import { EmailInsightsApi } from '../lib/v1/apis/EmailInsightsApi';
 import { AnalyzeEmailRequest } from '../lib/v1/models/AnalyzeEmailRequest';
 import { Configuration } from '../lib/v1/runtime';
-
-export type EmailInsightsConfiguration = {
-    apiKey: string;
-    version: string;
-    basePath?: string;
-};
 
 export class EmailInsights {
   private emailInsightsApi: EmailInsightsApi;
@@ -20,12 +15,17 @@ export class EmailInsights {
   }
 
   public async analyze (request: AnalyzeEmailRequest) {
-    return this.emailInsightsApi.analyzeEmail({
-        analyzeEmailRequest: {
-            email: request.email,
-            enableAutoCorrection: request.enableAutoCorrection,
-            enableAI: request.enableAI,
-        }
-    });
+    try {
+        return this.emailInsightsApi.analyzeEmail({
+            analyzeEmailRequest: {
+                email: request.email,
+                enableAutoCorrection: request.enableAutoCorrection,
+                enableAI: request.enableAI,
+            }
+        });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
   };
 }
