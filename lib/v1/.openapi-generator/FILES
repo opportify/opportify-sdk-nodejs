@@ -31,7 +31,8 @@ models/MALFORMEDREQUEST.ts
 models/MALFORMEDREQUEST1.ts
 models/NOTFOUND.ts
 models/Organization.ts
-models/RiskReport.ts
+models/RiskReportEmail.ts
+models/RiskReportIp.ts
 models/TechContact.ts
 models/TrustedProvider.ts
 models/Whois.ts
