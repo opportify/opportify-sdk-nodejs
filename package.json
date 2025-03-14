@@ -2,7 +2,7 @@
   "name": "@opportify/sdk-nodejs",
   "author": "Opportify, Inc.",
   "description": "Opportify SDK for NodeJs",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
