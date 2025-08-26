@@ -13,14 +13,23 @@
  */
 
 
+import { AnalyzeEmail200Response, AnalyzeEmail200ResponseFromJSON } from '../models/AnalyzeEmail200Response';
+import { AnalyzeEmailRequest, AnalyzeEmailRequestToJSON } from '../models/AnalyzeEmailRequest';
+import { BatchAnalyzeEmails202Response, BatchAnalyzeEmails202ResponseFromJSON } from '../models/BatchAnalyzeEmails202Response';
+import { BatchAnalyzeEmailsRequest, BatchAnalyzeEmailsRequestToJSON } from '../models/BatchAnalyzeEmailsRequest';
+import { GetEmailBatchStatus200Response, GetEmailBatchStatus200ResponseFromJSON } from '../models/GetEmailBatchStatus200Response';
 import * as runtime from '../runtime';
-import type { AnalyzeEmail200Response } from '../models/AnalyzeEmail200Response';
-import type { AnalyzeEmailRequest } from '../models/AnalyzeEmailRequest';
-import { AnalyzeEmail200ResponseFromJSON } from '../models/AnalyzeEmail200Response';
-import { AnalyzeEmailRequestToJSON } from '../models/AnalyzeEmailRequest';
 
 export interface AnalyzeEmailOperationRequest {
     analyzeEmailRequest: AnalyzeEmailRequest;
+}
+
+export interface BatchAnalyzeEmailsOperationRequest {
+    batchAnalyzeEmailsRequest: BatchAnalyzeEmailsRequest;
+}
+
+export interface GetEmailBatchStatusRequest {
+    jobId: string;
 }
 
 /**
@@ -67,6 +76,87 @@ export class EmailInsightsApi extends runtime.BaseAPI {
      */
     async analyzeEmail(requestParameters: AnalyzeEmailOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyzeEmail200Response> {
         const response = await this.analyzeEmailRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Batch Analyze Emails** endpoint enables processing of large volumes of email addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of emails for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of email addresses. - **CSV Upload**: Upload a CSV file with email addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one email address per line.  ### Example JSON Request: ```json {   \"emails\": [     \"first-email@domain.com\",     \"second-email@domain.com\",     \"third-email@domain.com\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * Batch Analyze Emails
+     */
+    async batchAnalyzeEmailsRaw(requestParameters: BatchAnalyzeEmailsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchAnalyzeEmails202Response>> {
+        if (requestParameters['batchAnalyzeEmailsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'batchAnalyzeEmailsRequest',
+                'Required parameter "batchAnalyzeEmailsRequest" was null or undefined when calling batchAnalyzeEmails().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/email/batch`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BatchAnalyzeEmailsRequestToJSON(requestParameters['batchAnalyzeEmailsRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BatchAnalyzeEmails202ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Batch Analyze Emails** endpoint enables processing of large volumes of email addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of emails for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of email addresses. - **CSV Upload**: Upload a CSV file with email addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one email address per line.  ### Example JSON Request: ```json {   \"emails\": [     \"first-email@domain.com\",     \"second-email@domain.com\",     \"third-email@domain.com\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * Batch Analyze Emails
+     */
+    async batchAnalyzeEmails(requestParameters: BatchAnalyzeEmailsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchAnalyzeEmails202Response> {
+        const response = await this.batchAnalyzeEmailsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Get Email Batch Status** endpoint allows you to retrieve the current status of a previously submitted batch processing job. Use this endpoint to track the progress of your batch email analysis request and retrieve results when processing is complete.  ### Response Information: - When status is `QUEUED`: The job is in the processing queue waiting to be processed. - When status is `PROCESSING`: The job is actively being processed. - When status is `COMPLETED`: The job has finished successfully. - When status is `ERROR`: An issue occurred during processing; check the statusDescription for details. 
+     * Get Email Batch Status
+     */
+    async getEmailBatchStatusRaw(requestParameters: GetEmailBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetEmailBatchStatus200Response>> {
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getEmailBatchStatus().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/email/batch/{jobId}`.replace(`{${"jobId"}}`, encodeURIComponent(String(requestParameters['jobId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetEmailBatchStatus200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Get Email Batch Status** endpoint allows you to retrieve the current status of a previously submitted batch processing job. Use this endpoint to track the progress of your batch email analysis request and retrieve results when processing is complete.  ### Response Information: - When status is `QUEUED`: The job is in the processing queue waiting to be processed. - When status is `PROCESSING`: The job is actively being processed. - When status is `COMPLETED`: The job has finished successfully. - When status is `ERROR`: An issue occurred during processing; check the statusDescription for details. 
+     * Get Email Batch Status
+     */
+    async getEmailBatchStatus(requestParameters: GetEmailBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetEmailBatchStatus200Response> {
+        const response = await this.getEmailBatchStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

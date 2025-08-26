@@ -1,5 +1,6 @@
 import { IPInsightsApi } from '../lib/v1/apis/IPInsightsApi';
 import { AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
+import { BatchAnalyzeIpsRequest } from '../lib/v1/models/BatchAnalyzeIpsRequest';
 import { Configuration } from '../lib/v1/runtime';
 import { ErrorResponse } from './types';
 
@@ -19,6 +20,20 @@ export class IPInsights {
         return await this.ipInsightsApi.analyzeIp({
             analyzeIpRequest: {
                 ip: request.ip,
+                enableAI: request.enableAI,
+            }
+        });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+
+  public async batchAnalyze (request: BatchAnalyzeIpsRequest) {
+    try {
+        return await this.ipInsightsApi.batchAnalyzeIps({
+            batchAnalyzeIpsRequest: {
+                ips: request.ips,
                 enableAI: request.enableAI,
             }
         });

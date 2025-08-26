@@ -13,14 +13,23 @@
  */
 
 
+import { AnalyzeIp200Response, AnalyzeIp200ResponseFromJSON } from '../models/AnalyzeIp200Response';
+import { AnalyzeIpRequest, AnalyzeIpRequestToJSON } from '../models/AnalyzeIpRequest';
+import { BatchAnalyzeEmails202Response, BatchAnalyzeEmails202ResponseFromJSON } from '../models/BatchAnalyzeEmails202Response';
+import { BatchAnalyzeIpsRequest, BatchAnalyzeIpsRequestToJSON } from '../models/BatchAnalyzeIpsRequest';
+import { GetEmailBatchStatus200Response, GetEmailBatchStatus200ResponseFromJSON } from '../models/GetEmailBatchStatus200Response';
 import * as runtime from '../runtime';
-import type { AnalyzeIp200Response } from '../models/AnalyzeIp200Response';
-import type { AnalyzeIpRequest } from '../models/AnalyzeIpRequest';
-import { AnalyzeIp200ResponseFromJSON } from '../models/AnalyzeIp200Response';
-import { AnalyzeIpRequestToJSON } from '../models/AnalyzeIpRequest';
 
 export interface AnalyzeIpOperationRequest {
     analyzeIpRequest: AnalyzeIpRequest;
+}
+
+export interface BatchAnalyzeIpsOperationRequest {
+    batchAnalyzeIpsRequest: BatchAnalyzeIpsRequest;
+}
+
+export interface GetIpBatchStatusRequest {
+    jobId: string;
 }
 
 /**
@@ -67,6 +76,87 @@ export class IPInsightsApi extends runtime.BaseAPI {
      */
     async analyzeIp(requestParameters: AnalyzeIpOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyzeIp200Response> {
         const response = await this.analyzeIpRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Batch Analyze IPs** endpoint enables processing of large volumes of IP addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of IP addresses for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of IP addresses. - **CSV Upload**: Upload a CSV file with IP addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one IP address per line.  ### Example JSON Request: ```json {   \"ips\": [     \"192.168.0.1\",     \"10.0.0.1\",     \"172.16.0.1\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * Batch Analyze IPs
+     */
+    async batchAnalyzeIpsRaw(requestParameters: BatchAnalyzeIpsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchAnalyzeEmails202Response>> {
+        if (requestParameters['batchAnalyzeIpsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'batchAnalyzeIpsRequest',
+                'Required parameter "batchAnalyzeIpsRequest" was null or undefined when calling batchAnalyzeIps().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/ip/batch`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BatchAnalyzeIpsRequestToJSON(requestParameters['batchAnalyzeIpsRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BatchAnalyzeEmails202ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Batch Analyze IPs** endpoint enables processing of large volumes of IP addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of IP addresses for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of IP addresses. - **CSV Upload**: Upload a CSV file with IP addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one IP address per line.  ### Example JSON Request: ```json {   \"ips\": [     \"192.168.0.1\",     \"10.0.0.1\",     \"172.16.0.1\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * Batch Analyze IPs
+     */
+    async batchAnalyzeIps(requestParameters: BatchAnalyzeIpsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchAnalyzeEmails202Response> {
+        const response = await this.batchAnalyzeIpsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Get IP Batch Status** endpoint allows you to retrieve the current status of a previously submitted batch processing job. Use this endpoint to track the progress of your batch IP analysis request and retrieve results when processing is complete.  ### Response Information: - When status is `QUEUED`: The job is in the processing queue waiting to be processed. - When status is `PROCESSING`: The job is actively being processed. - When status is `COMPLETED`: The job has finished successfully. - When status is `ERROR`: An issue occurred during processing; check the statusDescription for details. 
+     * Get IP Batch Status
+     */
+    async getIpBatchStatusRaw(requestParameters: GetIpBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetEmailBatchStatus200Response>> {
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getIpBatchStatus().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/ip/batch/{jobId}`.replace(`{${"jobId"}}`, encodeURIComponent(String(requestParameters['jobId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetEmailBatchStatus200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Get IP Batch Status** endpoint allows you to retrieve the current status of a previously submitted batch processing job. Use this endpoint to track the progress of your batch IP analysis request and retrieve results when processing is complete.  ### Response Information: - When status is `QUEUED`: The job is in the processing queue waiting to be processed. - When status is `PROCESSING`: The job is actively being processed. - When status is `COMPLETED`: The job has finished successfully. - When status is `ERROR`: An issue occurred during processing; check the statusDescription for details. 
+     * Get IP Batch Status
+     */
+    async getIpBatchStatus(requestParameters: GetIpBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetEmailBatchStatus200Response> {
+        const response = await this.getIpBatchStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
