@@ -1,5 +1,5 @@
 import { ErrorResponse } from './types';
-import { EmailInsightsApi } from '../lib/v1/apis/EmailInsightsApi';
+import { EmailInsightsApi, GetEmailBatchStatusRequest } from '../lib/v1/apis/EmailInsightsApi';
 import { AnalyzeEmailRequest  } from '../lib/v1/models/AnalyzeEmailRequest';
 import { Configuration } from '../lib/v1/runtime';
 import { BatchAnalyzeEmailsRequest } from '../lib/v1/models/BatchAnalyzeEmailsRequest';
@@ -39,6 +39,15 @@ export class EmailInsights {
                 enableAI: request.enableAI,
             }
         });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+  
+  public async getBatchStatus (request: GetEmailBatchStatusRequest ) {
+    try {
+        return await this.emailInsightsApi.getEmailBatchStatus(request);
     } catch (error) {
         const errorResponse = await error.response.json() as ErrorResponse;
         throw errorResponse;

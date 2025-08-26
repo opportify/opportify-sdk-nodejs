@@ -1,4 +1,4 @@
-import { IPInsightsApi } from '../lib/v1/apis/IPInsightsApi';
+import { GetIpBatchStatusRequest, IPInsightsApi } from '../lib/v1/apis/IPInsightsApi';
 import { AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
 import { BatchAnalyzeIpsRequest } from '../lib/v1/models/BatchAnalyzeIpsRequest';
 import { Configuration } from '../lib/v1/runtime';
@@ -37,6 +37,15 @@ export class IPInsights {
                 enableAI: request.enableAI,
             }
         });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+
+  public async getBatchStatus (request: GetIpBatchStatusRequest ) {
+    try {
+        return await this.ipInsightsApi.getIpBatchStatus(request);
     } catch (error) {
         const errorResponse = await error.response.json() as ErrorResponse;
         throw errorResponse;
