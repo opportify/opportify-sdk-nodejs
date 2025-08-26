@@ -1,7 +1,8 @@
 import { ErrorResponse } from './types';
-import { EmailInsightsApi } from '../lib/v1/apis/EmailInsightsApi';
-import { AnalyzeEmailRequest } from '../lib/v1/models/AnalyzeEmailRequest';
+import { EmailInsightsApi, GetEmailBatchStatusRequest } from '../lib/v1/apis/EmailInsightsApi';
+import { AnalyzeEmailRequest  } from '../lib/v1/models/AnalyzeEmailRequest';
 import { Configuration } from '../lib/v1/runtime';
+import { BatchAnalyzeEmailsRequest } from '../lib/v1/models/BatchAnalyzeEmailsRequest';
 
 export class EmailInsights {
   private emailInsightsApi: EmailInsightsApi;
@@ -23,6 +24,30 @@ export class EmailInsights {
                 enableAI: request.enableAI,
             }
         });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+
+  public async batchAnalyze (request: BatchAnalyzeEmailsRequest) {
+    try {
+        return await this.emailInsightsApi.batchAnalyzeEmails({
+            batchAnalyzeEmailsRequest: {
+                emails: request.emails,
+                enableAutoCorrection: request.enableAutoCorrection,
+                enableAI: request.enableAI,
+            }
+        });
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+  
+  public async getBatchStatus (request: GetEmailBatchStatusRequest ) {
+    try {
+        return await this.emailInsightsApi.getEmailBatchStatus(request);
     } catch (error) {
         const errorResponse = await error.response.json() as ErrorResponse;
         throw errorResponse;
