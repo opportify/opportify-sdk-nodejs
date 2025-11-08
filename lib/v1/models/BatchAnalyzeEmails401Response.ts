@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface BatchAnalyzeEmails401Response
  */
-export interface MALFORMEDREQUEST {
+export interface BatchAnalyzeEmails401Response {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof BatchAnalyzeEmails401Response
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof BatchAnalyzeEmails401Response
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the BatchAnalyzeEmails401Response interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfBatchAnalyzeEmails401Response(value: object): value is BatchAnalyzeEmails401Response {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function BatchAnalyzeEmails401ResponseFromJSON(json: any): BatchAnalyzeEmails401Response {
+    return BatchAnalyzeEmails401ResponseFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function BatchAnalyzeEmails401ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): BatchAnalyzeEmails401Response {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function BatchAnalyzeEmails401ResponseToJSON(json: any): BatchAnalyzeEmails401Response {
+    return BatchAnalyzeEmails401ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function BatchAnalyzeEmails401ResponseToJSONTyped(value?: BatchAnalyzeEmails401Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

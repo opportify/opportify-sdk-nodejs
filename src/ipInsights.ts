@@ -1,4 +1,4 @@
-import { GetIpBatchStatusRequest, IPInsightsApi } from '../lib/v1/apis/IPInsightsApi';
+import { CreateIpBatchExportRequest, GetIpBatchExportStatusRequest, GetIpBatchStatusRequest, IPInsightsApi } from '../lib/v1/apis/IPInsightsApi';
 import { AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
 import { BatchAnalyzeIpsRequest } from '../lib/v1/models/BatchAnalyzeIpsRequest';
 import { Configuration } from '../lib/v1/runtime';
@@ -51,4 +51,22 @@ export class IPInsights {
         throw errorResponse;
     }
   };
+  
+    public async createIpBatchExport (request: CreateIpBatchExportRequest) {
+      try {
+          return await this.ipInsightsApi.createIpBatchExport(request);
+      } catch (error) {
+          const errorResponse = await error.response.json() as ErrorResponse;
+          throw errorResponse;
+      }
+    };
+
+    public async getIpBatchExportStatus (request: GetIpBatchExportStatusRequest ) {
+      try {
+          return await this.ipInsightsApi.getIpBatchExportStatus(request);
+      } catch (error) {
+          const errorResponse = await error.response.json() as ErrorResponse;
+          throw errorResponse;
+      }
+    };
 }

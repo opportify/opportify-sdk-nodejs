@@ -13,61 +13,114 @@
  */
 
 import { mapValues } from '../runtime';
+import type { GetEmailBatchStatus200ResponseDownloadUrls } from './GetEmailBatchStatus200ResponseDownloadUrls';
+import {
+    GetEmailBatchStatus200ResponseDownloadUrlsFromJSON,
+    GetEmailBatchStatus200ResponseDownloadUrlsFromJSONTyped,
+    GetEmailBatchStatus200ResponseDownloadUrlsToJSON,
+    GetEmailBatchStatus200ResponseDownloadUrlsToJSONTyped,
+} from './GetEmailBatchStatus200ResponseDownloadUrls';
+
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface GetIpBatchStatus200Response
  */
-export interface MALFORMEDREQUEST {
+export interface GetIpBatchStatus200Response {
+    /**
+     * Unique identifier for the batch job.
+     * @type {string}
+     * @memberof GetIpBatchStatus200Response
+     */
+    jobId?: string;
+    /**
+     * Name of the batch job, if provided.
+     * @type {string}
+     * @memberof GetIpBatchStatus200Response
+     */
+    name?: string;
+    /**
+     * Current status of the batch job.
+     * @type {string}
+     * @memberof GetIpBatchStatus200Response
+     */
+    status?: GetIpBatchStatus200ResponseStatusEnum;
+    /**
+     * Description of the status, particularly useful when status is ERROR.
+     * @type {string}
+     * @memberof GetIpBatchStatus200Response
+     */
+    statusDescription?: string;
+    /**
+     * Percentage of completion for the batch job (0-100).
+     * @type {number}
+     * @memberof GetIpBatchStatus200Response
+     */
+    progress?: number;
     /**
      * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @type {GetEmailBatchStatus200ResponseDownloadUrls}
+     * @memberof GetIpBatchStatus200Response
      */
-    errorMessage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorCode?: string;
+    downloadUrls?: GetEmailBatchStatus200ResponseDownloadUrls;
 }
 
+
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * @export
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export const GetIpBatchStatus200ResponseStatusEnum = {
+    Queued: 'QUEUED',
+    Processing: 'PROCESSING',
+    Completed: 'COMPLETED',
+    Error: 'ERROR'
+} as const;
+export type GetIpBatchStatus200ResponseStatusEnum = typeof GetIpBatchStatus200ResponseStatusEnum[keyof typeof GetIpBatchStatus200ResponseStatusEnum];
+
+
+/**
+ * Check if a given object implements the GetIpBatchStatus200Response interface.
+ */
+export function instanceOfGetIpBatchStatus200Response(value: object): value is GetIpBatchStatus200Response {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function GetIpBatchStatus200ResponseFromJSON(json: any): GetIpBatchStatus200Response {
+    return GetIpBatchStatus200ResponseFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function GetIpBatchStatus200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetIpBatchStatus200Response {
     if (json == null) {
         return json;
     }
     return {
         
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
+        'jobId': json['jobId'] == null ? undefined : json['jobId'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'status': json['status'] == null ? undefined : json['status'],
+        'statusDescription': json['statusDescription'] == null ? undefined : json['statusDescription'],
+        'progress': json['progress'] == null ? undefined : json['progress'],
+        'downloadUrls': json['downloadUrls'] == null ? undefined : GetEmailBatchStatus200ResponseDownloadUrlsFromJSON(json['downloadUrls']),
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function GetIpBatchStatus200ResponseToJSON(json: any): GetIpBatchStatus200Response {
+    return GetIpBatchStatus200ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function GetIpBatchStatus200ResponseToJSONTyped(value?: GetIpBatchStatus200Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
+        'jobId': value['jobId'],
+        'name': value['name'],
+        'status': value['status'],
+        'statusDescription': value['statusDescription'],
+        'progress': value['progress'],
+        'downloadUrls': GetEmailBatchStatus200ResponseDownloadUrlsToJSON(value['downloadUrls']),
     };
 }
 

@@ -12,35 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { AnalyzeIp400ResponseError } from './AnalyzeIp400ResponseError';
+import type { IPVALIDATIONFAILED } from './IPVALIDATIONFAILED';
 import {
-    AnalyzeIp400ResponseErrorFromJSON,
-    AnalyzeIp400ResponseErrorFromJSONTyped,
-    AnalyzeIp400ResponseErrorToJSON,
-    AnalyzeIp400ResponseErrorToJSONTyped,
-} from './AnalyzeIp400ResponseError';
+    instanceOfIPVALIDATIONFAILED,
+    IPVALIDATIONFAILEDFromJSON,
+    IPVALIDATIONFAILEDFromJSONTyped,
+    IPVALIDATIONFAILEDToJSON,
+} from './IPVALIDATIONFAILED';
+import type { MALFORMEDREQUEST2 } from './MALFORMEDREQUEST2';
+import {
+    instanceOfMALFORMEDREQUEST2,
+    MALFORMEDREQUEST2FromJSON,
+    MALFORMEDREQUEST2FromJSONTyped,
+    MALFORMEDREQUEST2ToJSON,
+} from './MALFORMEDREQUEST2';
 
 /**
+ * @type AnalyzeIp400Response
  * 
  * @export
- * @interface AnalyzeIp400Response
  */
-export interface AnalyzeIp400Response {
-    /**
-     * 
-     * @type {AnalyzeIp400ResponseError}
-     * @memberof AnalyzeIp400Response
-     */
-    error?: AnalyzeIp400ResponseError;
-}
-
-/**
- * Check if a given object implements the AnalyzeIp400Response interface.
- */
-export function instanceOfAnalyzeIp400Response(value: object): value is AnalyzeIp400Response {
-    return true;
-}
+export type AnalyzeIp400Response = IPVALIDATIONFAILED | MALFORMEDREQUEST2;
 
 export function AnalyzeIp400ResponseFromJSON(json: any): AnalyzeIp400Response {
     return AnalyzeIp400ResponseFromJSONTyped(json, false);
@@ -50,13 +42,17 @@ export function AnalyzeIp400ResponseFromJSONTyped(json: any, ignoreDiscriminator
     if (json == null) {
         return json;
     }
-    return {
-        
-        'error': json['error'] == null ? undefined : AnalyzeIp400ResponseErrorFromJSON(json['error']),
-    };
+    if (instanceOfIPVALIDATIONFAILED(json)) {
+        return IPVALIDATIONFAILEDFromJSONTyped(json, true);
+    }
+    if (instanceOfMALFORMEDREQUEST2(json)) {
+        return MALFORMEDREQUEST2FromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function AnalyzeIp400ResponseToJSON(json: any): AnalyzeIp400Response {
+export function AnalyzeIp400ResponseToJSON(json: any): any {
     return AnalyzeIp400ResponseToJSONTyped(json, false);
 }
 
@@ -65,9 +61,13 @@ export function AnalyzeIp400ResponseToJSONTyped(value?: AnalyzeIp400Response | n
         return value;
     }
 
-    return {
-        
-        'error': AnalyzeIp400ResponseErrorToJSON(value['error']),
-    };
+    if (instanceOfIPVALIDATIONFAILED(value)) {
+        return IPVALIDATIONFAILEDToJSON(value as IPVALIDATIONFAILED);
+    }
+    if (instanceOfMALFORMEDREQUEST2(value)) {
+        return MALFORMEDREQUEST2ToJSON(value as MALFORMEDREQUEST2);
+    }
+
+    return {};
 }
 

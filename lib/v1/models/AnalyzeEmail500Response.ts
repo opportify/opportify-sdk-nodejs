@@ -13,14 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { AnalyzeEmail500ResponseError } from './AnalyzeEmail500ResponseError';
-import {
-    AnalyzeEmail500ResponseErrorFromJSON,
-    AnalyzeEmail500ResponseErrorFromJSONTyped,
-    AnalyzeEmail500ResponseErrorToJSON,
-    AnalyzeEmail500ResponseErrorToJSONTyped,
-} from './AnalyzeEmail500ResponseError';
-
 /**
  * 
  * @export
@@ -29,10 +21,16 @@ import {
 export interface AnalyzeEmail500Response {
     /**
      * 
-     * @type {AnalyzeEmail500ResponseError}
+     * @type {string}
      * @memberof AnalyzeEmail500Response
      */
-    error?: AnalyzeEmail500ResponseError;
+    errorMessage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AnalyzeEmail500Response
+     */
+    errorCode?: string;
 }
 
 /**
@@ -52,7 +50,8 @@ export function AnalyzeEmail500ResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'error': json['error'] == null ? undefined : AnalyzeEmail500ResponseErrorFromJSON(json['error']),
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -67,7 +66,8 @@ export function AnalyzeEmail500ResponseToJSONTyped(value?: AnalyzeEmail500Respon
 
     return {
         
-        'error': AnalyzeEmail500ResponseErrorToJSON(value['error']),
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

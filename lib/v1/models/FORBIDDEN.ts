@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface FORBIDDEN
  */
-export interface MALFORMEDREQUEST {
+export interface FORBIDDEN {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof FORBIDDEN
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof FORBIDDEN
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the FORBIDDEN interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfFORBIDDEN(value: object): value is FORBIDDEN {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function FORBIDDENFromJSON(json: any): FORBIDDEN {
+    return FORBIDDENFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function FORBIDDENFromJSONTyped(json: any, ignoreDiscriminator: boolean): FORBIDDEN {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function FORBIDDENToJSON(json: any): FORBIDDEN {
+    return FORBIDDENToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function FORBIDDENToJSONTyped(value?: FORBIDDEN | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

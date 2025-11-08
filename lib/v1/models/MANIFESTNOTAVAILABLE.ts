@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface MANIFESTNOTAVAILABLE
  */
-export interface MALFORMEDREQUEST {
+export interface MANIFESTNOTAVAILABLE {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof MANIFESTNOTAVAILABLE
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof MANIFESTNOTAVAILABLE
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the MANIFESTNOTAVAILABLE interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfMANIFESTNOTAVAILABLE(value: object): value is MANIFESTNOTAVAILABLE {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function MANIFESTNOTAVAILABLEFromJSON(json: any): MANIFESTNOTAVAILABLE {
+    return MANIFESTNOTAVAILABLEFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function MANIFESTNOTAVAILABLEFromJSONTyped(json: any, ignoreDiscriminator: boolean): MANIFESTNOTAVAILABLE {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function MANIFESTNOTAVAILABLEToJSON(json: any): MANIFESTNOTAVAILABLE {
+    return MANIFESTNOTAVAILABLEToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function MANIFESTNOTAVAILABLEToJSONTyped(value?: MANIFESTNOTAVAILABLE | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

@@ -13,12 +13,15 @@
  */
 
 
+import * as runtime from '../runtime';
 import { AnalyzeEmail200Response, AnalyzeEmail200ResponseFromJSON } from '../models/AnalyzeEmail200Response';
 import { AnalyzeEmailRequest, AnalyzeEmailRequestToJSON } from '../models/AnalyzeEmailRequest';
 import { BatchAnalyzeEmails202Response, BatchAnalyzeEmails202ResponseFromJSON } from '../models/BatchAnalyzeEmails202Response';
 import { BatchAnalyzeEmailsRequest, BatchAnalyzeEmailsRequestToJSON } from '../models/BatchAnalyzeEmailsRequest';
+import { ExportCreatedResponse, ExportCreatedResponseFromJSON } from '../models/ExportCreatedResponse';
+import { ExportRequest, ExportRequestToJSON } from '../models/ExportRequest';
+import { ExportStatusResponse, ExportStatusResponseFromJSON } from '../models/ExportStatusResponse';
 import { GetEmailBatchStatus200Response, GetEmailBatchStatus200ResponseFromJSON } from '../models/GetEmailBatchStatus200Response';
-import * as runtime from '../runtime';
 
 export interface AnalyzeEmailOperationRequest {
     analyzeEmailRequest: AnalyzeEmailRequest;
@@ -26,6 +29,16 @@ export interface AnalyzeEmailOperationRequest {
 
 export interface BatchAnalyzeEmailsOperationRequest {
     batchAnalyzeEmailsRequest: BatchAnalyzeEmailsRequest;
+}
+
+export interface CreateEmailBatchExportRequest {
+    jobId: string;
+    exportRequest?: ExportRequest;
+}
+
+export interface GetEmailBatchExportStatusRequest {
+    jobId: string;
+    exportId: string;
 }
 
 export interface GetEmailBatchStatusRequest {
@@ -38,7 +51,7 @@ export interface GetEmailBatchStatusRequest {
 export class EmailInsightsApi extends runtime.BaseAPI {
 
     /**
-     * The **Analyze Email** endpoint validates an email address and returns its deliverability status, provider details, and potential corrections. This endpoint is ideal for ensuring accurate email data before usage.  ### Features: - Validate email syntax. - Identify email types (free, disposable, private or unknown). - Real time verifications:   - Reachable: Confirms if the email domain has valid MX DNS records using DNS lookup.   - Deliverable: Simulates an SMTP handshake to check if the email address exists and is deliverable.   - Catch-All: Detects if the domain accepts all emails (catch-all configuration). - Intelligent Error Correction: Automatically corrects well-known misspelled email addresses. - Risk Report: Provides an AI-driven normalized score (200-1000) to evaluate email risk, using predefined thresholds.  ### Example Request Body: ```json {   \"email\": \"my-email@company.com\",   \"enableAI\": true,   \"enableAutoCorrection\": true } ```  ### Authentication & Security - **API Key:** Access to the API requires an API key, which must be included in the request headers. Businesses can generate unlimited API keys directly from their account, offering flexibility and ease of use.  - **ACL Rules:** Enhance security with Access Control Lists (ACL), allowing you to restrict API access from specific IP addresses or ranges. This feature provides an additional layer of protection by ensuring only authorized IPs can interact with the API. - **No Query Parameters:** As a precautionary measure, our API avoids the use of query parameters for all operations, including authentication and handling Personally Identifiable Information (PII). This approach minimizes security risks by preventing sensitive data from being exposed in access logs, browser history, cached URLs, debugging tools, or inadvertently shared URLs. All sensitive information is securely transmitted through headers or the request body. 
+     * The **Analyze Email** endpoint validates an email address and returns its deliverability status, provider details, and potential corrections. This endpoint is ideal for ensuring accurate email data before usage.  ### Features: - **Syntax intelligence:** Validates RFC compliance, normalizes casing, and suggests corrections for typo-prone domains. - **Provider & classification:** Identifies the provider slug, detects private/free/disposable usage, and flags role or no-reply inboxes. - **Live deliverability checks:** Performs DNS reachability, SMTP handshakes, catch-all detection, and mailbox-full assessments in real time. - **AI risk reporting:** Returns a normalized 200–1000 score with the top weighted reason codes and guardrails for high-risk findings. - **Domain enrichment & DNS snapshot:** Surfaces registrar, age, security posture, and priority-ordered MX records when enrichment is enabled.  ### Example Request Body: ```json {   \"email\": \"my-email@company.com\",   \"enableAI\": true,   \"enableAutoCorrection\": true,   \"enableDomainEnrichment\": true } ```  ### Authentication & Security - **API Key:** Access to the API requires an API key, which must be included in the request headers. Businesses can generate unlimited API keys directly from their account, offering flexibility and ease of use.  - **ACL Rules:** Enhance security with Access Control Lists (ACL), allowing you to restrict API access from specific IP addresses or ranges. This feature provides an additional layer of protection by ensuring only authorized IPs can interact with the API. - **No Query Parameters:** As a precautionary measure, our API avoids the use of query parameters for all operations, including authentication and handling Personally Identifiable Information (PII). This approach minimizes security risks by preventing sensitive data from being exposed in access logs, browser history, cached URLs, debugging tools, or inadvertently shared URLs. All sensitive information is securely transmitted through headers or the request body. 
      * Analyze Email
      */
     async analyzeEmailRaw(requestParameters: AnalyzeEmailOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyzeEmail200Response>> {
@@ -71,7 +84,7 @@ export class EmailInsightsApi extends runtime.BaseAPI {
     }
 
     /**
-     * The **Analyze Email** endpoint validates an email address and returns its deliverability status, provider details, and potential corrections. This endpoint is ideal for ensuring accurate email data before usage.  ### Features: - Validate email syntax. - Identify email types (free, disposable, private or unknown). - Real time verifications:   - Reachable: Confirms if the email domain has valid MX DNS records using DNS lookup.   - Deliverable: Simulates an SMTP handshake to check if the email address exists and is deliverable.   - Catch-All: Detects if the domain accepts all emails (catch-all configuration). - Intelligent Error Correction: Automatically corrects well-known misspelled email addresses. - Risk Report: Provides an AI-driven normalized score (200-1000) to evaluate email risk, using predefined thresholds.  ### Example Request Body: ```json {   \"email\": \"my-email@company.com\",   \"enableAI\": true,   \"enableAutoCorrection\": true } ```  ### Authentication & Security - **API Key:** Access to the API requires an API key, which must be included in the request headers. Businesses can generate unlimited API keys directly from their account, offering flexibility and ease of use.  - **ACL Rules:** Enhance security with Access Control Lists (ACL), allowing you to restrict API access from specific IP addresses or ranges. This feature provides an additional layer of protection by ensuring only authorized IPs can interact with the API. - **No Query Parameters:** As a precautionary measure, our API avoids the use of query parameters for all operations, including authentication and handling Personally Identifiable Information (PII). This approach minimizes security risks by preventing sensitive data from being exposed in access logs, browser history, cached URLs, debugging tools, or inadvertently shared URLs. All sensitive information is securely transmitted through headers or the request body. 
+     * The **Analyze Email** endpoint validates an email address and returns its deliverability status, provider details, and potential corrections. This endpoint is ideal for ensuring accurate email data before usage.  ### Features: - **Syntax intelligence:** Validates RFC compliance, normalizes casing, and suggests corrections for typo-prone domains. - **Provider & classification:** Identifies the provider slug, detects private/free/disposable usage, and flags role or no-reply inboxes. - **Live deliverability checks:** Performs DNS reachability, SMTP handshakes, catch-all detection, and mailbox-full assessments in real time. - **AI risk reporting:** Returns a normalized 200–1000 score with the top weighted reason codes and guardrails for high-risk findings. - **Domain enrichment & DNS snapshot:** Surfaces registrar, age, security posture, and priority-ordered MX records when enrichment is enabled.  ### Example Request Body: ```json {   \"email\": \"my-email@company.com\",   \"enableAI\": true,   \"enableAutoCorrection\": true,   \"enableDomainEnrichment\": true } ```  ### Authentication & Security - **API Key:** Access to the API requires an API key, which must be included in the request headers. Businesses can generate unlimited API keys directly from their account, offering flexibility and ease of use.  - **ACL Rules:** Enhance security with Access Control Lists (ACL), allowing you to restrict API access from specific IP addresses or ranges. This feature provides an additional layer of protection by ensuring only authorized IPs can interact with the API. - **No Query Parameters:** As a precautionary measure, our API avoids the use of query parameters for all operations, including authentication and handling Personally Identifiable Information (PII). This approach minimizes security risks by preventing sensitive data from being exposed in access logs, browser history, cached URLs, debugging tools, or inadvertently shared URLs. All sensitive information is securely transmitted through headers or the request body. 
      * Analyze Email
      */
     async analyzeEmail(requestParameters: AnalyzeEmailOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyzeEmail200Response> {
@@ -80,7 +93,7 @@ export class EmailInsightsApi extends runtime.BaseAPI {
     }
 
     /**
-     * The **Batch Analyze Emails** endpoint enables processing of large volumes of email addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of emails for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of email addresses. - **CSV Upload**: Upload a CSV file with email addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one email address per line.  ### Example JSON Request: ```json {   \"emails\": [     \"first-email@domain.com\",     \"second-email@domain.com\",     \"third-email@domain.com\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * The **Batch Analyze Emails** endpoint enables processing of large volumes of email addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of emails for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, tabular CSV/TSV/XLSX uploads, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Example JSON Request: ```json {   \"emails\": [     \"first-email@domain.com\",     \"second-email@domain.com\"   ],   \"name\": \"my list of emails\",   \"enableAI\": true,   \"enableAutoCorrection\": true } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
      * Batch Analyze Emails
      */
     async batchAnalyzeEmailsRaw(requestParameters: BatchAnalyzeEmailsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchAnalyzeEmails202Response>> {
@@ -113,11 +126,99 @@ export class EmailInsightsApi extends runtime.BaseAPI {
     }
 
     /**
-     * The **Batch Analyze Emails** endpoint enables processing of large volumes of email addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of emails for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of email addresses. - **CSV Upload**: Upload a CSV file with email addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one email address per line.  ### Example JSON Request: ```json {   \"emails\": [     \"first-email@domain.com\",     \"second-email@domain.com\",     \"third-email@domain.com\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * The **Batch Analyze Emails** endpoint enables processing of large volumes of email addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of emails for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, tabular CSV/TSV/XLSX uploads, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Example JSON Request: ```json {   \"emails\": [     \"first-email@domain.com\",     \"second-email@domain.com\"   ],   \"name\": \"my list of emails\",   \"enableAI\": true,   \"enableAutoCorrection\": true } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
      * Batch Analyze Emails
      */
     async batchAnalyzeEmails(requestParameters: BatchAnalyzeEmailsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchAnalyzeEmails202Response> {
         const response = await this.batchAnalyzeEmailsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Create Email Batch Export** endpoint allows you to request a custom export of completed batch analysis results. You can apply filters, select specific columns, and choose the output format (CSV or JSON).  ### Features: - **Format Options**: Export results as CSV or JSON - **Filtering**: Apply filters on any field in the response data - **Column Selection**: Choose specific fields to include in the export - **Async Processing**: Export requests are processed asynchronously  ### Filter Syntax: - **String filters**: Exact match, comma-separated values, or arrays - **Numeric filters**: Exact values, arrays, or range objects with `min`/`max` - **Nested fields**: Use dot notation (e.g., `riskReport.score`)  ### Example Request: ```json {   \"exportType\": \"csv\",   \"filters\": {     \"isDeliverable\": \"yes\",     \"riskReport.score\": { \"min\": 0, \"max\": 400 },     \"emailProvider\": [\"gmail\", \"yahoo\", \"outlook\"]   },   \"columns\": [     \"emailAddress\",     \"emailProvider\",     \"riskReport.score\",     \"isDeliverable\"   ] } ``` 
+     * Create Email Batch Export
+     */
+    async createEmailBatchExportRaw(requestParameters: CreateEmailBatchExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportCreatedResponse>> {
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling createEmailBatchExport().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/email/batch/{jobId}/exports`.replace(`{${"jobId"}}`, encodeURIComponent(String(requestParameters['jobId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExportRequestToJSON(requestParameters['exportRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExportCreatedResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Create Email Batch Export** endpoint allows you to request a custom export of completed batch analysis results. You can apply filters, select specific columns, and choose the output format (CSV or JSON).  ### Features: - **Format Options**: Export results as CSV or JSON - **Filtering**: Apply filters on any field in the response data - **Column Selection**: Choose specific fields to include in the export - **Async Processing**: Export requests are processed asynchronously  ### Filter Syntax: - **String filters**: Exact match, comma-separated values, or arrays - **Numeric filters**: Exact values, arrays, or range objects with `min`/`max` - **Nested fields**: Use dot notation (e.g., `riskReport.score`)  ### Example Request: ```json {   \"exportType\": \"csv\",   \"filters\": {     \"isDeliverable\": \"yes\",     \"riskReport.score\": { \"min\": 0, \"max\": 400 },     \"emailProvider\": [\"gmail\", \"yahoo\", \"outlook\"]   },   \"columns\": [     \"emailAddress\",     \"emailProvider\",     \"riskReport.score\",     \"isDeliverable\"   ] } ``` 
+     * Create Email Batch Export
+     */
+    async createEmailBatchExport(requestParameters: CreateEmailBatchExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportCreatedResponse> {
+        const response = await this.createEmailBatchExportRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Get Email Batch Export Status** endpoint retrieves the status and download URL for a previously requested export job.  ### Export Status Values: - `QUEUED`: Export request received, waiting for processing - `PROCESSING`: Worker is filtering and generating the export file - `COMPLETED`: Export ready, `downloadUrl` available - `FAILED`: Export failed, check `errorCode` and `errorMessage` 
+     * Get Email Batch Export Status
+     */
+    async getEmailBatchExportStatusRaw(requestParameters: GetEmailBatchExportStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportStatusResponse>> {
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getEmailBatchExportStatus().'
+            );
+        }
+
+        if (requestParameters['exportId'] == null) {
+            throw new runtime.RequiredError(
+                'exportId',
+                'Required parameter "exportId" was null or undefined when calling getEmailBatchExportStatus().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/email/batch/{jobId}/exports/{exportId}`.replace(`{${"jobId"}}`, encodeURIComponent(String(requestParameters['jobId']))).replace(`{${"exportId"}}`, encodeURIComponent(String(requestParameters['exportId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExportStatusResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Get Email Batch Export Status** endpoint retrieves the status and download URL for a previously requested export job.  ### Export Status Values: - `QUEUED`: Export request received, waiting for processing - `PROCESSING`: Worker is filtering and generating the export file - `COMPLETED`: Export ready, `downloadUrl` available - `FAILED`: Export failed, check `errorCode` and `errorMessage` 
+     * Get Email Batch Export Status
+     */
+    async getEmailBatchExportStatus(requestParameters: GetEmailBatchExportStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportStatusResponse> {
+        const response = await this.getEmailBatchExportStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

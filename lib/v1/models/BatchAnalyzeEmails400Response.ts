@@ -12,35 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { BatchAnalyzeEmails400ResponseError } from './BatchAnalyzeEmails400ResponseError';
+import type { INVALIDDATA } from './INVALIDDATA';
 import {
-    BatchAnalyzeEmails400ResponseErrorFromJSON,
-    BatchAnalyzeEmails400ResponseErrorFromJSONTyped,
-    BatchAnalyzeEmails400ResponseErrorToJSON,
-    BatchAnalyzeEmails400ResponseErrorToJSONTyped,
-} from './BatchAnalyzeEmails400ResponseError';
+    instanceOfINVALIDDATA,
+    INVALIDDATAFromJSON,
+    INVALIDDATAFromJSONTyped,
+    INVALIDDATAToJSON,
+} from './INVALIDDATA';
+import type { MALFORMEDREQUEST3 } from './MALFORMEDREQUEST3';
+import {
+    instanceOfMALFORMEDREQUEST3,
+    MALFORMEDREQUEST3FromJSON,
+    MALFORMEDREQUEST3FromJSONTyped,
+    MALFORMEDREQUEST3ToJSON,
+} from './MALFORMEDREQUEST3';
 
 /**
+ * @type BatchAnalyzeEmails400Response
  * 
  * @export
- * @interface BatchAnalyzeEmails400Response
  */
-export interface BatchAnalyzeEmails400Response {
-    /**
-     * 
-     * @type {BatchAnalyzeEmails400ResponseError}
-     * @memberof BatchAnalyzeEmails400Response
-     */
-    error?: BatchAnalyzeEmails400ResponseError;
-}
-
-/**
- * Check if a given object implements the BatchAnalyzeEmails400Response interface.
- */
-export function instanceOfBatchAnalyzeEmails400Response(value: object): value is BatchAnalyzeEmails400Response {
-    return true;
-}
+export type BatchAnalyzeEmails400Response = INVALIDDATA | MALFORMEDREQUEST3;
 
 export function BatchAnalyzeEmails400ResponseFromJSON(json: any): BatchAnalyzeEmails400Response {
     return BatchAnalyzeEmails400ResponseFromJSONTyped(json, false);
@@ -50,13 +42,17 @@ export function BatchAnalyzeEmails400ResponseFromJSONTyped(json: any, ignoreDisc
     if (json == null) {
         return json;
     }
-    return {
-        
-        'error': json['error'] == null ? undefined : BatchAnalyzeEmails400ResponseErrorFromJSON(json['error']),
-    };
+    if (instanceOfINVALIDDATA(json)) {
+        return INVALIDDATAFromJSONTyped(json, true);
+    }
+    if (instanceOfMALFORMEDREQUEST3(json)) {
+        return MALFORMEDREQUEST3FromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function BatchAnalyzeEmails400ResponseToJSON(json: any): BatchAnalyzeEmails400Response {
+export function BatchAnalyzeEmails400ResponseToJSON(json: any): any {
     return BatchAnalyzeEmails400ResponseToJSONTyped(json, false);
 }
 
@@ -65,9 +61,13 @@ export function BatchAnalyzeEmails400ResponseToJSONTyped(value?: BatchAnalyzeEma
         return value;
     }
 
-    return {
-        
-        'error': BatchAnalyzeEmails400ResponseErrorToJSON(value['error']),
-    };
+    if (instanceOfINVALIDDATA(value)) {
+        return INVALIDDATAToJSON(value as INVALIDDATA);
+    }
+    if (instanceOfMALFORMEDREQUEST3(value)) {
+        return MALFORMEDREQUEST3ToJSON(value as MALFORMEDREQUEST3);
+    }
+
+    return {};
 }
 

@@ -24,13 +24,13 @@ export interface MALFORMEDREQUEST2 {
      * @type {string}
      * @memberof MALFORMEDREQUEST2
      */
-    message?: string;
+    errorMessage?: string;
     /**
      * 
      * @type {string}
      * @memberof MALFORMEDREQUEST2
      */
-    code?: string;
+    errorCode?: string;
 }
 
 /**
@@ -50,8 +50,8 @@ export function MALFORMEDREQUEST2FromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
-        'code': json['code'] == null ? undefined : json['code'],
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -66,8 +66,8 @@ export function MALFORMEDREQUEST2ToJSONTyped(value?: MALFORMEDREQUEST2 | null, i
 
     return {
         
-        'message': value['message'],
-        'code': value['code'],
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

@@ -26,6 +26,12 @@ export interface BatchAnalyzeIpsRequest {
      */
     ips: Array<string>;
     /**
+     * Optional name for the batch job.
+     * @type {string}
+     * @memberof BatchAnalyzeIpsRequest
+     */
+    name?: string;
+    /**
      * Enable AI-based analysis for insights.
      * @type {boolean}
      * @memberof BatchAnalyzeIpsRequest
@@ -52,6 +58,7 @@ export function BatchAnalyzeIpsRequestFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'ips': json['ips'],
+        'name': json['name'] == null ? undefined : json['name'],
         'enableAI': json['enableAI'] == null ? undefined : json['enableAI'],
     };
 }
@@ -68,6 +75,7 @@ export function BatchAnalyzeIpsRequestToJSONTyped(value?: BatchAnalyzeIpsRequest
     return {
         
         'ips': value['ips'],
+        'name': value['name'],
         'enableAI': value['enableAI'],
     };
 }

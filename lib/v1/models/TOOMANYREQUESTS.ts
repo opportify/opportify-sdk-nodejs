@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface TOOMANYREQUESTS
  */
-export interface MALFORMEDREQUEST {
+export interface TOOMANYREQUESTS {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof TOOMANYREQUESTS
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof TOOMANYREQUESTS
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the TOOMANYREQUESTS interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfTOOMANYREQUESTS(value: object): value is TOOMANYREQUESTS {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function TOOMANYREQUESTSFromJSON(json: any): TOOMANYREQUESTS {
+    return TOOMANYREQUESTSFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function TOOMANYREQUESTSFromJSONTyped(json: any, ignoreDiscriminator: boolean): TOOMANYREQUESTS {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function TOOMANYREQUESTSToJSON(json: any): TOOMANYREQUESTS {
+    return TOOMANYREQUESTSToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function TOOMANYREQUESTSToJSONTyped(value?: TOOMANYREQUESTS | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

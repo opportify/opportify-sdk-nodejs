@@ -12,62 +12,62 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import type { INVALIDPLAN1 } from './INVALIDPLAN1';
+import {
+    instanceOfINVALIDPLAN1,
+    INVALIDPLAN1FromJSON,
+    INVALIDPLAN1FromJSONTyped,
+    INVALIDPLAN1ToJSON,
+} from './INVALIDPLAN1';
+import type { QUOTAEXCEEDED } from './QUOTAEXCEEDED';
+import {
+    instanceOfQUOTAEXCEEDED,
+    QUOTAEXCEEDEDFromJSON,
+    QUOTAEXCEEDEDFromJSONTyped,
+    QUOTAEXCEEDEDToJSON,
+} from './QUOTAEXCEEDED';
+
 /**
+ * @type BatchAnalyzeEmails402Response
  * 
  * @export
- * @interface MALFORMEDREQUEST
  */
-export interface MALFORMEDREQUEST {
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorMessage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorCode?: string;
+export type BatchAnalyzeEmails402Response = INVALIDPLAN1 | QUOTAEXCEEDED;
+
+export function BatchAnalyzeEmails402ResponseFromJSON(json: any): BatchAnalyzeEmails402Response {
+    return BatchAnalyzeEmails402ResponseFromJSONTyped(json, false);
 }
 
-/**
- * Check if a given object implements the MALFORMEDREQUEST interface.
- */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
-    return true;
-}
-
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
-}
-
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function BatchAnalyzeEmails402ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): BatchAnalyzeEmails402Response {
     if (json == null) {
         return json;
     }
-    return {
-        
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
-    };
+    if (instanceOfINVALIDPLAN1(json)) {
+        return INVALIDPLAN1FromJSONTyped(json, true);
+    }
+    if (instanceOfQUOTAEXCEEDED(json)) {
+        return QUOTAEXCEEDEDFromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function BatchAnalyzeEmails402ResponseToJSON(json: any): any {
+    return BatchAnalyzeEmails402ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function BatchAnalyzeEmails402ResponseToJSONTyped(value?: BatchAnalyzeEmails402Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
-    return {
-        
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
-    };
+    if (instanceOfINVALIDPLAN1(value)) {
+        return INVALIDPLAN1ToJSON(value as INVALIDPLAN1);
+    }
+    if (instanceOfQUOTAEXCEEDED(value)) {
+        return QUOTAEXCEEDEDToJSON(value as QUOTAEXCEEDED);
+    }
+
+    return {};
 }
 

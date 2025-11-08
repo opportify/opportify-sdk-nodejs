@@ -24,13 +24,13 @@ export interface INTERNALERROR {
      * @type {string}
      * @memberof INTERNALERROR
      */
-    message?: string;
+    errorMessage?: string;
     /**
      * 
      * @type {string}
      * @memberof INTERNALERROR
      */
-    code?: string;
+    errorCode?: string;
 }
 
 /**
@@ -50,8 +50,8 @@ export function INTERNALERRORFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
-        'code': json['code'] == null ? undefined : json['code'],
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -66,8 +66,8 @@ export function INTERNALERRORToJSONTyped(value?: INTERNALERROR | null, ignoreDis
 
     return {
         
-        'message': value['message'],
-        'code': value['code'],
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

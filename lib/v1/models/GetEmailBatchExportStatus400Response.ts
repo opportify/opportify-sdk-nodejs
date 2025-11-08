@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface GetEmailBatchExportStatus400Response
  */
-export interface MALFORMEDREQUEST {
+export interface GetEmailBatchExportStatus400Response {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof GetEmailBatchExportStatus400Response
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof GetEmailBatchExportStatus400Response
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the GetEmailBatchExportStatus400Response interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfGetEmailBatchExportStatus400Response(value: object): value is GetEmailBatchExportStatus400Response {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function GetEmailBatchExportStatus400ResponseFromJSON(json: any): GetEmailBatchExportStatus400Response {
+    return GetEmailBatchExportStatus400ResponseFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function GetEmailBatchExportStatus400ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetEmailBatchExportStatus400Response {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function GetEmailBatchExportStatus400ResponseToJSON(json: any): GetEmailBatchExportStatus400Response {
+    return GetEmailBatchExportStatus400ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function GetEmailBatchExportStatus400ResponseToJSONTyped(value?: GetEmailBatchExportStatus400Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

@@ -26,6 +26,12 @@ export interface BatchAnalyzeEmailsRequest {
      */
     emails: Array<string>;
     /**
+     * Optional name for the batch job.
+     * @type {string}
+     * @memberof BatchAnalyzeEmailsRequest
+     */
+    name?: string;
+    /**
      * Enable AI-based analysis for insights.
      * @type {boolean}
      * @memberof BatchAnalyzeEmailsRequest
@@ -58,6 +64,7 @@ export function BatchAnalyzeEmailsRequestFromJSONTyped(json: any, ignoreDiscrimi
     return {
         
         'emails': json['emails'],
+        'name': json['name'] == null ? undefined : json['name'],
         'enableAI': json['enableAI'] == null ? undefined : json['enableAI'],
         'enableAutoCorrection': json['enableAutoCorrection'] == null ? undefined : json['enableAutoCorrection'],
     };
@@ -75,6 +82,7 @@ export function BatchAnalyzeEmailsRequestToJSONTyped(value?: BatchAnalyzeEmailsR
     return {
         
         'emails': value['emails'],
+        'name': value['name'],
         'enableAI': value['enableAI'],
         'enableAutoCorrection': value['enableAutoCorrection'],
     };

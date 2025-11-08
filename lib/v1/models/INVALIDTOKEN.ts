@@ -24,13 +24,13 @@ export interface INVALIDTOKEN {
      * @type {string}
      * @memberof INVALIDTOKEN
      */
-    message?: string;
+    errorMessage?: string;
     /**
      * 
      * @type {string}
      * @memberof INVALIDTOKEN
      */
-    code?: string;
+    errorCode?: string;
 }
 
 /**
@@ -50,8 +50,8 @@ export function INVALIDTOKENFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
-        'code': json['code'] == null ? undefined : json['code'],
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -66,8 +66,8 @@ export function INVALIDTOKENToJSONTyped(value?: INVALIDTOKEN | null, ignoreDiscr
 
     return {
         
-        'message': value['message'],
-        'code': value['code'],
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

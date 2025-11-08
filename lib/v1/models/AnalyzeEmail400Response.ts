@@ -12,35 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { AnalyzeEmail400ResponseError } from './AnalyzeEmail400ResponseError';
+import type { INVALIDEMAIL } from './INVALIDEMAIL';
 import {
-    AnalyzeEmail400ResponseErrorFromJSON,
-    AnalyzeEmail400ResponseErrorFromJSONTyped,
-    AnalyzeEmail400ResponseErrorToJSON,
-    AnalyzeEmail400ResponseErrorToJSONTyped,
-} from './AnalyzeEmail400ResponseError';
+    instanceOfINVALIDEMAIL,
+    INVALIDEMAILFromJSON,
+    INVALIDEMAILFromJSONTyped,
+    INVALIDEMAILToJSON,
+} from './INVALIDEMAIL';
+import type { MALFORMEDREQUEST } from './MALFORMEDREQUEST';
+import {
+    instanceOfMALFORMEDREQUEST,
+    MALFORMEDREQUESTFromJSON,
+    MALFORMEDREQUESTFromJSONTyped,
+    MALFORMEDREQUESTToJSON,
+} from './MALFORMEDREQUEST';
 
 /**
+ * @type AnalyzeEmail400Response
  * 
  * @export
- * @interface AnalyzeEmail400Response
  */
-export interface AnalyzeEmail400Response {
-    /**
-     * 
-     * @type {AnalyzeEmail400ResponseError}
-     * @memberof AnalyzeEmail400Response
-     */
-    error?: AnalyzeEmail400ResponseError;
-}
-
-/**
- * Check if a given object implements the AnalyzeEmail400Response interface.
- */
-export function instanceOfAnalyzeEmail400Response(value: object): value is AnalyzeEmail400Response {
-    return true;
-}
+export type AnalyzeEmail400Response = INVALIDEMAIL | MALFORMEDREQUEST;
 
 export function AnalyzeEmail400ResponseFromJSON(json: any): AnalyzeEmail400Response {
     return AnalyzeEmail400ResponseFromJSONTyped(json, false);
@@ -50,13 +42,17 @@ export function AnalyzeEmail400ResponseFromJSONTyped(json: any, ignoreDiscrimina
     if (json == null) {
         return json;
     }
-    return {
-        
-        'error': json['error'] == null ? undefined : AnalyzeEmail400ResponseErrorFromJSON(json['error']),
-    };
+    if (instanceOfINVALIDEMAIL(json)) {
+        return INVALIDEMAILFromJSONTyped(json, true);
+    }
+    if (instanceOfMALFORMEDREQUEST(json)) {
+        return MALFORMEDREQUESTFromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function AnalyzeEmail400ResponseToJSON(json: any): AnalyzeEmail400Response {
+export function AnalyzeEmail400ResponseToJSON(json: any): any {
     return AnalyzeEmail400ResponseToJSONTyped(json, false);
 }
 
@@ -65,9 +61,13 @@ export function AnalyzeEmail400ResponseToJSONTyped(value?: AnalyzeEmail400Respon
         return value;
     }
 
-    return {
-        
-        'error': AnalyzeEmail400ResponseErrorToJSON(value['error']),
-    };
+    if (instanceOfINVALIDEMAIL(value)) {
+        return INVALIDEMAILToJSON(value as INVALIDEMAIL);
+    }
+    if (instanceOfMALFORMEDREQUEST(value)) {
+        return MALFORMEDREQUESTToJSON(value as MALFORMEDREQUEST);
+    }
+
+    return {};
 }
 

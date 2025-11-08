@@ -13,12 +13,15 @@
  */
 
 
+import * as runtime from '../runtime';
 import { AnalyzeIp200Response, AnalyzeIp200ResponseFromJSON } from '../models/AnalyzeIp200Response';
 import { AnalyzeIpRequest, AnalyzeIpRequestToJSON } from '../models/AnalyzeIpRequest';
-import { BatchAnalyzeEmails202Response, BatchAnalyzeEmails202ResponseFromJSON } from '../models/BatchAnalyzeEmails202Response';
+import { BatchAnalyzeIps202Response, BatchAnalyzeIps202ResponseFromJSON } from '../models/BatchAnalyzeIps202Response';
 import { BatchAnalyzeIpsRequest, BatchAnalyzeIpsRequestToJSON } from '../models/BatchAnalyzeIpsRequest';
-import { GetEmailBatchStatus200Response, GetEmailBatchStatus200ResponseFromJSON } from '../models/GetEmailBatchStatus200Response';
-import * as runtime from '../runtime';
+import { ExportCreatedResponse, ExportCreatedResponseFromJSON } from '../models/ExportCreatedResponse';
+import { ExportRequest, ExportRequestToJSON } from '../models/ExportRequest';
+import { ExportStatusResponse, ExportStatusResponseFromJSON } from '../models/ExportStatusResponse';
+import { GetIpBatchStatus200Response, GetIpBatchStatus200ResponseFromJSON } from '../models/GetIpBatchStatus200Response';
 
 export interface AnalyzeIpOperationRequest {
     analyzeIpRequest: AnalyzeIpRequest;
@@ -26,6 +29,16 @@ export interface AnalyzeIpOperationRequest {
 
 export interface BatchAnalyzeIpsOperationRequest {
     batchAnalyzeIpsRequest: BatchAnalyzeIpsRequest;
+}
+
+export interface CreateIpBatchExportRequest {
+    jobId: string;
+    exportRequest?: ExportRequest;
+}
+
+export interface GetIpBatchExportStatusRequest {
+    jobId: string;
+    exportId: string;
 }
 
 export interface GetIpBatchStatusRequest {
@@ -80,10 +93,10 @@ export class IPInsightsApi extends runtime.BaseAPI {
     }
 
     /**
-     * The **Batch Analyze IPs** endpoint enables processing of large volumes of IP addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of IP addresses for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of IP addresses. - **CSV Upload**: Upload a CSV file with IP addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one IP address per line.  ### Example JSON Request: ```json {   \"ips\": [     \"192.168.0.1\",     \"10.0.0.1\",     \"172.16.0.1\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * The **Batch Analyze IPs** endpoint enables processing of large volumes of IP addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of IP addresses for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, tabular CSV/TSV/XLSX uploads, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Example JSON Request: ```json {   \"ips\": [     \"192.168.0.1\",     \"10.0.0.1\",     \"172.16.0.1\"   ],   \"name\": \"my list of IPs\",   \"enableAI\": true } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
      * Batch Analyze IPs
      */
-    async batchAnalyzeIpsRaw(requestParameters: BatchAnalyzeIpsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchAnalyzeEmails202Response>> {
+    async batchAnalyzeIpsRaw(requestParameters: BatchAnalyzeIpsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchAnalyzeIps202Response>> {
         if (requestParameters['batchAnalyzeIpsRequest'] == null) {
             throw new runtime.RequiredError(
                 'batchAnalyzeIpsRequest',
@@ -109,15 +122,103 @@ export class IPInsightsApi extends runtime.BaseAPI {
             body: BatchAnalyzeIpsRequestToJSON(requestParameters['batchAnalyzeIpsRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => BatchAnalyzeEmails202ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BatchAnalyzeIps202ResponseFromJSON(jsonValue));
     }
 
     /**
-     * The **Batch Analyze IPs** endpoint enables processing of large volumes of IP addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of IP addresses for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, CSV files, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Input Formats: - **JSON Array**: Submit a JSON object containing an array of IP addresses. - **CSV Upload**: Upload a CSV file with IP addresses in a single column (with header row). - **Line-Separated Text**: Submit a plain text file with one IP address per line.  ### Example JSON Request: ```json {   \"ips\": [     \"192.168.0.1\",     \"10.0.0.1\",     \"172.16.0.1\"   ] } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
+     * The **Batch Analyze IPs** endpoint enables processing of large volumes of IP addresses asynchronously. This endpoint accepts various input formats and returns a job ID for tracking the analysis progress.  ### Features: - **Asynchronous Processing**: Submit large lists of IP addresses for background processing. - **Multiple Input Formats**: Submit data as JSON arrays, tabular CSV/TSV/XLSX uploads, or line-separated text. - **Job Tracking**: Monitor processing status using the returned job ID.  ### Example JSON Request: ```json {   \"ips\": [     \"192.168.0.1\",     \"10.0.0.1\",     \"172.16.0.1\"   ],   \"name\": \"my list of IPs\",   \"enableAI\": true } ```  ### Authentication & Security - **API Key:** Access requires an API key in the request headers. - **ACL Rules:** Optional IP-based access restrictions for enhanced security. - **No Query Parameters:** All data is transmitted securely through headers or request body.  ### Payload Limits - Maximum payload size: 3MB 
      * Batch Analyze IPs
      */
-    async batchAnalyzeIps(requestParameters: BatchAnalyzeIpsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchAnalyzeEmails202Response> {
+    async batchAnalyzeIps(requestParameters: BatchAnalyzeIpsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchAnalyzeIps202Response> {
         const response = await this.batchAnalyzeIpsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Create IP Batch Export** endpoint allows you to request a custom export of completed batch analysis results. You can apply filters, select specific columns, and choose the output format (CSV or JSON).  ### Features: - **Format Options**: Export results as CSV or JSON - **Filtering**: Apply filters on any field in the response data - **Column Selection**: Choose specific fields to include in the export - **Async Processing**: Export requests are processed asynchronously  ### Filter Syntax: - **String filters**: Exact match, comma-separated values, or arrays - **Numeric filters**: Exact values, arrays, or range objects with `min`/`max` - **Nested fields**: Use dot notation (e.g., `result.riskReport.score`)  ### Example Request: ```json {   \"exportType\": \"json\",   \"filters\": {     \"result.riskReport.level\": \"low,medium\",     \"result.riskReport.score\": { \"max\": 500 },     \"result.geo.countryCode\": [\"US\", \"CA\", \"GB\"]   } } ``` 
+     * Create IP Batch Export
+     */
+    async createIpBatchExportRaw(requestParameters: CreateIpBatchExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportCreatedResponse>> {
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling createIpBatchExport().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/ip/batch/{jobId}/exports`.replace(`{${"jobId"}}`, encodeURIComponent(String(requestParameters['jobId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExportRequestToJSON(requestParameters['exportRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExportCreatedResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Create IP Batch Export** endpoint allows you to request a custom export of completed batch analysis results. You can apply filters, select specific columns, and choose the output format (CSV or JSON).  ### Features: - **Format Options**: Export results as CSV or JSON - **Filtering**: Apply filters on any field in the response data - **Column Selection**: Choose specific fields to include in the export - **Async Processing**: Export requests are processed asynchronously  ### Filter Syntax: - **String filters**: Exact match, comma-separated values, or arrays - **Numeric filters**: Exact values, arrays, or range objects with `min`/`max` - **Nested fields**: Use dot notation (e.g., `result.riskReport.score`)  ### Example Request: ```json {   \"exportType\": \"json\",   \"filters\": {     \"result.riskReport.level\": \"low,medium\",     \"result.riskReport.score\": { \"max\": 500 },     \"result.geo.countryCode\": [\"US\", \"CA\", \"GB\"]   } } ``` 
+     * Create IP Batch Export
+     */
+    async createIpBatchExport(requestParameters: CreateIpBatchExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportCreatedResponse> {
+        const response = await this.createIpBatchExportRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The **Get IP Batch Export Status** endpoint retrieves the status and download URL for a previously requested export job.  ### Export Status Values: - `QUEUED`: Export request received, waiting for processing - `PROCESSING`: Worker is filtering and generating the export file - `COMPLETED`: Export ready, `downloadUrl` available - `FAILED`: Export failed, check `errorCode` and `errorMessage` 
+     * Get IP Batch Export Status
+     */
+    async getIpBatchExportStatusRaw(requestParameters: GetIpBatchExportStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportStatusResponse>> {
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getIpBatchExportStatus().'
+            );
+        }
+
+        if (requestParameters['exportId'] == null) {
+            throw new runtime.RequiredError(
+                'exportId',
+                'Required parameter "exportId" was null or undefined when calling getIpBatchExportStatus().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
+        }
+
+        const response = await this.request({
+            path: `/ip/batch/{jobId}/exports/{exportId}`.replace(`{${"jobId"}}`, encodeURIComponent(String(requestParameters['jobId']))).replace(`{${"exportId"}}`, encodeURIComponent(String(requestParameters['exportId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExportStatusResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The **Get IP Batch Export Status** endpoint retrieves the status and download URL for a previously requested export job.  ### Export Status Values: - `QUEUED`: Export request received, waiting for processing - `PROCESSING`: Worker is filtering and generating the export file - `COMPLETED`: Export ready, `downloadUrl` available - `FAILED`: Export failed, check `errorCode` and `errorMessage` 
+     * Get IP Batch Export Status
+     */
+    async getIpBatchExportStatus(requestParameters: GetIpBatchExportStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportStatusResponse> {
+        const response = await this.getIpBatchExportStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -125,7 +226,7 @@ export class IPInsightsApi extends runtime.BaseAPI {
      * The **Get IP Batch Status** endpoint allows you to retrieve the current status of a previously submitted batch processing job. Use this endpoint to track the progress of your batch IP analysis request and retrieve results when processing is complete.  ### Response Information: - When status is `QUEUED`: The job is in the processing queue waiting to be processed. - When status is `PROCESSING`: The job is actively being processed. - When status is `COMPLETED`: The job has finished successfully. - When status is `ERROR`: An issue occurred during processing; check the statusDescription for details. 
      * Get IP Batch Status
      */
-    async getIpBatchStatusRaw(requestParameters: GetIpBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetEmailBatchStatus200Response>> {
+    async getIpBatchStatusRaw(requestParameters: GetIpBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetIpBatchStatus200Response>> {
         if (requestParameters['jobId'] == null) {
             throw new runtime.RequiredError(
                 'jobId',
@@ -148,14 +249,14 @@ export class IPInsightsApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => GetEmailBatchStatus200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetIpBatchStatus200ResponseFromJSON(jsonValue));
     }
 
     /**
      * The **Get IP Batch Status** endpoint allows you to retrieve the current status of a previously submitted batch processing job. Use this endpoint to track the progress of your batch IP analysis request and retrieve results when processing is complete.  ### Response Information: - When status is `QUEUED`: The job is in the processing queue waiting to be processed. - When status is `PROCESSING`: The job is actively being processed. - When status is `COMPLETED`: The job has finished successfully. - When status is `ERROR`: An issue occurred during processing; check the statusDescription for details. 
      * Get IP Batch Status
      */
-    async getIpBatchStatus(requestParameters: GetIpBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetEmailBatchStatus200Response> {
+    async getIpBatchStatus(requestParameters: GetIpBatchStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetIpBatchStatus200Response> {
         const response = await this.getIpBatchStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }

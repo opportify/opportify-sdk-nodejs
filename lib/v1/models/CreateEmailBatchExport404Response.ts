@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface CreateEmailBatchExport404Response
  */
-export interface MALFORMEDREQUEST {
+export interface CreateEmailBatchExport404Response {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof CreateEmailBatchExport404Response
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof CreateEmailBatchExport404Response
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the CreateEmailBatchExport404Response interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfCreateEmailBatchExport404Response(value: object): value is CreateEmailBatchExport404Response {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function CreateEmailBatchExport404ResponseFromJSON(json: any): CreateEmailBatchExport404Response {
+    return CreateEmailBatchExport404ResponseFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function CreateEmailBatchExport404ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateEmailBatchExport404Response {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function CreateEmailBatchExport404ResponseToJSON(json: any): CreateEmailBatchExport404Response {
+    return CreateEmailBatchExport404ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function CreateEmailBatchExport404ResponseToJSONTyped(value?: CreateEmailBatchExport404Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

@@ -12,62 +12,62 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import type { JOBNOTREADY } from './JOBNOTREADY';
+import {
+    instanceOfJOBNOTREADY,
+    JOBNOTREADYFromJSON,
+    JOBNOTREADYFromJSONTyped,
+    JOBNOTREADYToJSON,
+} from './JOBNOTREADY';
+import type { MANIFESTNOTAVAILABLE } from './MANIFESTNOTAVAILABLE';
+import {
+    instanceOfMANIFESTNOTAVAILABLE,
+    MANIFESTNOTAVAILABLEFromJSON,
+    MANIFESTNOTAVAILABLEFromJSONTyped,
+    MANIFESTNOTAVAILABLEToJSON,
+} from './MANIFESTNOTAVAILABLE';
+
 /**
+ * @type CreateEmailBatchExport409Response
  * 
  * @export
- * @interface MALFORMEDREQUEST
  */
-export interface MALFORMEDREQUEST {
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorMessage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorCode?: string;
+export type CreateEmailBatchExport409Response = JOBNOTREADY | MANIFESTNOTAVAILABLE;
+
+export function CreateEmailBatchExport409ResponseFromJSON(json: any): CreateEmailBatchExport409Response {
+    return CreateEmailBatchExport409ResponseFromJSONTyped(json, false);
 }
 
-/**
- * Check if a given object implements the MALFORMEDREQUEST interface.
- */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
-    return true;
-}
-
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
-}
-
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function CreateEmailBatchExport409ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateEmailBatchExport409Response {
     if (json == null) {
         return json;
     }
-    return {
-        
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
-    };
+    if (instanceOfJOBNOTREADY(json)) {
+        return JOBNOTREADYFromJSONTyped(json, true);
+    }
+    if (instanceOfMANIFESTNOTAVAILABLE(json)) {
+        return MANIFESTNOTAVAILABLEFromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function CreateEmailBatchExport409ResponseToJSON(json: any): any {
+    return CreateEmailBatchExport409ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function CreateEmailBatchExport409ResponseToJSONTyped(value?: CreateEmailBatchExport409Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
-    return {
-        
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
-    };
+    if (instanceOfJOBNOTREADY(value)) {
+        return JOBNOTREADYToJSON(value as JOBNOTREADY);
+    }
+    if (instanceOfMANIFESTNOTAVAILABLE(value)) {
+        return MANIFESTNOTAVAILABLEToJSON(value as MANIFESTNOTAVAILABLE);
+    }
+
+    return {};
 }
 

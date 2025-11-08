@@ -14,60 +14,81 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * Response when an export request is accepted.
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface ExportCreatedResponse
  */
-export interface MALFORMEDREQUEST {
+export interface ExportCreatedResponse {
     /**
-     * 
+     * The batch job identifier.
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof ExportCreatedResponse
      */
-    errorMessage?: string;
+    jobId: string;
     /**
-     * 
+     * The unique identifier for the export job.
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof ExportCreatedResponse
      */
-    errorCode?: string;
+    exportId: string;
+    /**
+     * Initial status of the export job.
+     * @type {string}
+     * @memberof ExportCreatedResponse
+     */
+    status: ExportCreatedResponseStatusEnum;
 }
 
+
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * @export
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export const ExportCreatedResponseStatusEnum = {
+    Queued: 'QUEUED'
+} as const;
+export type ExportCreatedResponseStatusEnum = typeof ExportCreatedResponseStatusEnum[keyof typeof ExportCreatedResponseStatusEnum];
+
+
+/**
+ * Check if a given object implements the ExportCreatedResponse interface.
+ */
+export function instanceOfExportCreatedResponse(value: object): value is ExportCreatedResponse {
+    if (!('jobId' in value) || value['jobId'] === undefined) return false;
+    if (!('exportId' in value) || value['exportId'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function ExportCreatedResponseFromJSON(json: any): ExportCreatedResponse {
+    return ExportCreatedResponseFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function ExportCreatedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportCreatedResponse {
     if (json == null) {
         return json;
     }
     return {
         
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
+        'jobId': json['jobId'],
+        'exportId': json['exportId'],
+        'status': json['status'],
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function ExportCreatedResponseToJSON(json: any): ExportCreatedResponse {
+    return ExportCreatedResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function ExportCreatedResponseToJSONTyped(value?: ExportCreatedResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
+        'jobId': value['jobId'],
+        'exportId': value['exportId'],
+        'status': value['status'],
     };
 }
 

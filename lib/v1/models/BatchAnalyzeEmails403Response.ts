@@ -12,35 +12,55 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { BatchAnalyzeEmails403ResponseError } from './BatchAnalyzeEmails403ResponseError';
+import type { FORBIDDEN } from './FORBIDDEN';
 import {
-    BatchAnalyzeEmails403ResponseErrorFromJSON,
-    BatchAnalyzeEmails403ResponseErrorFromJSONTyped,
-    BatchAnalyzeEmails403ResponseErrorToJSON,
-    BatchAnalyzeEmails403ResponseErrorToJSONTyped,
-} from './BatchAnalyzeEmails403ResponseError';
+    instanceOfFORBIDDEN,
+    FORBIDDENFromJSON,
+    FORBIDDENFromJSONTyped,
+    FORBIDDENToJSON,
+} from './FORBIDDEN';
+import type { INTERNALERROR } from './INTERNALERROR';
+import {
+    instanceOfINTERNALERROR,
+    INTERNALERRORFromJSON,
+    INTERNALERRORFromJSONTyped,
+    INTERNALERRORToJSON,
+} from './INTERNALERROR';
+import type { INVALIDPLAN } from './INVALIDPLAN';
+import {
+    instanceOfINVALIDPLAN,
+    INVALIDPLANFromJSON,
+    INVALIDPLANFromJSONTyped,
+    INVALIDPLANToJSON,
+} from './INVALIDPLAN';
+import type { INVALIDTOKEN } from './INVALIDTOKEN';
+import {
+    instanceOfINVALIDTOKEN,
+    INVALIDTOKENFromJSON,
+    INVALIDTOKENFromJSONTyped,
+    INVALIDTOKENToJSON,
+} from './INVALIDTOKEN';
+import type { MALFORMEDREQUEST1 } from './MALFORMEDREQUEST1';
+import {
+    instanceOfMALFORMEDREQUEST1,
+    MALFORMEDREQUEST1FromJSON,
+    MALFORMEDREQUEST1FromJSONTyped,
+    MALFORMEDREQUEST1ToJSON,
+} from './MALFORMEDREQUEST1';
+import type { TOOMANYREQUESTS } from './TOOMANYREQUESTS';
+import {
+    instanceOfTOOMANYREQUESTS,
+    TOOMANYREQUESTSFromJSON,
+    TOOMANYREQUESTSFromJSONTyped,
+    TOOMANYREQUESTSToJSON,
+} from './TOOMANYREQUESTS';
 
 /**
+ * @type BatchAnalyzeEmails403Response
  * 
  * @export
- * @interface BatchAnalyzeEmails403Response
  */
-export interface BatchAnalyzeEmails403Response {
-    /**
-     * 
-     * @type {BatchAnalyzeEmails403ResponseError}
-     * @memberof BatchAnalyzeEmails403Response
-     */
-    error?: BatchAnalyzeEmails403ResponseError;
-}
-
-/**
- * Check if a given object implements the BatchAnalyzeEmails403Response interface.
- */
-export function instanceOfBatchAnalyzeEmails403Response(value: object): value is BatchAnalyzeEmails403Response {
-    return true;
-}
+export type BatchAnalyzeEmails403Response = FORBIDDEN | INTERNALERROR | INVALIDPLAN | INVALIDTOKEN | MALFORMEDREQUEST1 | TOOMANYREQUESTS;
 
 export function BatchAnalyzeEmails403ResponseFromJSON(json: any): BatchAnalyzeEmails403Response {
     return BatchAnalyzeEmails403ResponseFromJSONTyped(json, false);
@@ -50,13 +70,29 @@ export function BatchAnalyzeEmails403ResponseFromJSONTyped(json: any, ignoreDisc
     if (json == null) {
         return json;
     }
-    return {
-        
-        'error': json['error'] == null ? undefined : BatchAnalyzeEmails403ResponseErrorFromJSON(json['error']),
-    };
+    if (instanceOfFORBIDDEN(json)) {
+        return FORBIDDENFromJSONTyped(json, true);
+    }
+    if (instanceOfINTERNALERROR(json)) {
+        return INTERNALERRORFromJSONTyped(json, true);
+    }
+    if (instanceOfINVALIDPLAN(json)) {
+        return INVALIDPLANFromJSONTyped(json, true);
+    }
+    if (instanceOfINVALIDTOKEN(json)) {
+        return INVALIDTOKENFromJSONTyped(json, true);
+    }
+    if (instanceOfMALFORMEDREQUEST1(json)) {
+        return MALFORMEDREQUEST1FromJSONTyped(json, true);
+    }
+    if (instanceOfTOOMANYREQUESTS(json)) {
+        return TOOMANYREQUESTSFromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function BatchAnalyzeEmails403ResponseToJSON(json: any): BatchAnalyzeEmails403Response {
+export function BatchAnalyzeEmails403ResponseToJSON(json: any): any {
     return BatchAnalyzeEmails403ResponseToJSONTyped(json, false);
 }
 
@@ -65,9 +101,25 @@ export function BatchAnalyzeEmails403ResponseToJSONTyped(value?: BatchAnalyzeEma
         return value;
     }
 
-    return {
-        
-        'error': BatchAnalyzeEmails403ResponseErrorToJSON(value['error']),
-    };
+    if (instanceOfFORBIDDEN(value)) {
+        return FORBIDDENToJSON(value as FORBIDDEN);
+    }
+    if (instanceOfINTERNALERROR(value)) {
+        return INTERNALERRORToJSON(value as INTERNALERROR);
+    }
+    if (instanceOfINVALIDPLAN(value)) {
+        return INVALIDPLANToJSON(value as INVALIDPLAN);
+    }
+    if (instanceOfINVALIDTOKEN(value)) {
+        return INVALIDTOKENToJSON(value as INVALIDTOKEN);
+    }
+    if (instanceOfMALFORMEDREQUEST1(value)) {
+        return MALFORMEDREQUEST1ToJSON(value as MALFORMEDREQUEST1);
+    }
+    if (instanceOfTOOMANYREQUESTS(value)) {
+        return TOOMANYREQUESTSToJSON(value as TOOMANYREQUESTS);
+    }
+
+    return {};
 }
 
