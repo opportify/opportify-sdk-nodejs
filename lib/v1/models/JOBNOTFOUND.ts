@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface JOBNOTFOUND
  */
-export interface MALFORMEDREQUEST {
+export interface JOBNOTFOUND {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof JOBNOTFOUND
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof JOBNOTFOUND
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the JOBNOTFOUND interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfJOBNOTFOUND(value: object): value is JOBNOTFOUND {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function JOBNOTFOUNDFromJSON(json: any): JOBNOTFOUND {
+    return JOBNOTFOUNDFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function JOBNOTFOUNDFromJSONTyped(json: any, ignoreDiscriminator: boolean): JOBNOTFOUND {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function JOBNOTFOUNDToJSON(json: any): JOBNOTFOUND {
+    return JOBNOTFOUNDToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function JOBNOTFOUNDToJSONTyped(value?: JOBNOTFOUND | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

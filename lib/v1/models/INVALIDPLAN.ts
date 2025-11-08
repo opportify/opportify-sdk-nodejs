@@ -24,13 +24,13 @@ export interface INVALIDPLAN {
      * @type {string}
      * @memberof INVALIDPLAN
      */
-    message?: string;
+    errorMessage?: string;
     /**
      * 
      * @type {string}
      * @memberof INVALIDPLAN
      */
-    code?: string;
+    errorCode?: string;
 }
 
 /**
@@ -50,8 +50,8 @@ export function INVALIDPLANFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
-        'code': json['code'] == null ? undefined : json['code'],
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -66,8 +66,8 @@ export function INVALIDPLANToJSONTyped(value?: INVALIDPLAN | null, ignoreDiscrim
 
     return {
         
-        'message': value['message'],
-        'code': value['code'],
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

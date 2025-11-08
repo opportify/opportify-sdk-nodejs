@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface MALFORMEDREQUEST3
  */
-export interface MALFORMEDREQUEST {
+export interface MALFORMEDREQUEST3 {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof MALFORMEDREQUEST3
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof MALFORMEDREQUEST3
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the MALFORMEDREQUEST3 interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfMALFORMEDREQUEST3(value: object): value is MALFORMEDREQUEST3 {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function MALFORMEDREQUEST3FromJSON(json: any): MALFORMEDREQUEST3 {
+    return MALFORMEDREQUEST3FromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function MALFORMEDREQUEST3FromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST3 {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function MALFORMEDREQUEST3ToJSON(json: any): MALFORMEDREQUEST3 {
+    return MALFORMEDREQUEST3ToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function MALFORMEDREQUEST3ToJSONTyped(value?: MALFORMEDREQUEST3 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

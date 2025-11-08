@@ -24,13 +24,13 @@ export interface IPVALIDATIONFAILED {
      * @type {string}
      * @memberof IPVALIDATIONFAILED
      */
-    message?: string;
+    errorMessage?: string;
     /**
      * 
      * @type {string}
      * @memberof IPVALIDATIONFAILED
      */
-    code?: string;
+    errorCode?: string;
 }
 
 /**
@@ -50,8 +50,8 @@ export function IPVALIDATIONFAILEDFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
-        'code': json['code'] == null ? undefined : json['code'],
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -66,8 +66,8 @@ export function IPVALIDATIONFAILEDToJSONTyped(value?: IPVALIDATIONFAILED | null,
 
     return {
         
-        'message': value['message'],
-        'code': value['code'],
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

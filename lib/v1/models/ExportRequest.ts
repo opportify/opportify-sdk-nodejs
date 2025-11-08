@@ -14,60 +14,83 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * Request body for creating a batch export.
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface ExportRequest
  */
-export interface MALFORMEDREQUEST {
+export interface ExportRequest {
     /**
-     * 
+     * Output format for the export. If omitted, the server will use `csv` as the default format.
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof ExportRequest
      */
-    errorMessage?: string;
+    exportType?: ExportRequestExportTypeEnum;
     /**
+     * Field-level filters to apply to the export. Supports string filters (exact match, comma-separated, or arrays), numeric filters (exact values, arrays, or range objects with min/max), and nested field access using dot notation.
      * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * - Maximum 25 filters
+     * - Maximum 50 values per filter
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof ExportRequest
      */
-    errorCode?: string;
+    filters?: { [key: string]: any; };
+    /**
+     * Array of field paths to include in the export. If omitted, all fields are included. Maximum 100 columns.
+     * @type {Array<string>}
+     * @memberof ExportRequest
+     */
+    columns?: Array<string>;
 }
 
+
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * @export
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export const ExportRequestExportTypeEnum = {
+    Csv: 'csv',
+    Json: 'json'
+} as const;
+export type ExportRequestExportTypeEnum = typeof ExportRequestExportTypeEnum[keyof typeof ExportRequestExportTypeEnum];
+
+
+/**
+ * Check if a given object implements the ExportRequest interface.
+ */
+export function instanceOfExportRequest(value: object): value is ExportRequest {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function ExportRequestFromJSON(json: any): ExportRequest {
+    return ExportRequestFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function ExportRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportRequest {
     if (json == null) {
         return json;
     }
     return {
         
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
+        'exportType': json['exportType'] == null ? undefined : json['exportType'],
+        'filters': json['filters'] == null ? undefined : json['filters'],
+        'columns': json['columns'] == null ? undefined : json['columns'],
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function ExportRequestToJSON(json: any): ExportRequest {
+    return ExportRequestToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function ExportRequestToJSONTyped(value?: ExportRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
+        'exportType': value['exportType'],
+        'filters': value['filters'],
+        'columns': value['columns'],
     };
 }
 

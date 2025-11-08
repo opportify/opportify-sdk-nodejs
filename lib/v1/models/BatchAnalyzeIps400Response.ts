@@ -12,35 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { BatchAnalyzeIps400ResponseError } from './BatchAnalyzeIps400ResponseError';
+import type { INVALIDDATA1 } from './INVALIDDATA1';
 import {
-    BatchAnalyzeIps400ResponseErrorFromJSON,
-    BatchAnalyzeIps400ResponseErrorFromJSONTyped,
-    BatchAnalyzeIps400ResponseErrorToJSON,
-    BatchAnalyzeIps400ResponseErrorToJSONTyped,
-} from './BatchAnalyzeIps400ResponseError';
+    instanceOfINVALIDDATA1,
+    INVALIDDATA1FromJSON,
+    INVALIDDATA1FromJSONTyped,
+    INVALIDDATA1ToJSON,
+} from './INVALIDDATA1';
+import type { MALFORMEDREQUEST3 } from './MALFORMEDREQUEST3';
+import {
+    instanceOfMALFORMEDREQUEST3,
+    MALFORMEDREQUEST3FromJSON,
+    MALFORMEDREQUEST3FromJSONTyped,
+    MALFORMEDREQUEST3ToJSON,
+} from './MALFORMEDREQUEST3';
 
 /**
+ * @type BatchAnalyzeIps400Response
  * 
  * @export
- * @interface BatchAnalyzeIps400Response
  */
-export interface BatchAnalyzeIps400Response {
-    /**
-     * 
-     * @type {BatchAnalyzeIps400ResponseError}
-     * @memberof BatchAnalyzeIps400Response
-     */
-    error?: BatchAnalyzeIps400ResponseError;
-}
-
-/**
- * Check if a given object implements the BatchAnalyzeIps400Response interface.
- */
-export function instanceOfBatchAnalyzeIps400Response(value: object): value is BatchAnalyzeIps400Response {
-    return true;
-}
+export type BatchAnalyzeIps400Response = INVALIDDATA1 | MALFORMEDREQUEST3;
 
 export function BatchAnalyzeIps400ResponseFromJSON(json: any): BatchAnalyzeIps400Response {
     return BatchAnalyzeIps400ResponseFromJSONTyped(json, false);
@@ -50,13 +42,17 @@ export function BatchAnalyzeIps400ResponseFromJSONTyped(json: any, ignoreDiscrim
     if (json == null) {
         return json;
     }
-    return {
-        
-        'error': json['error'] == null ? undefined : BatchAnalyzeIps400ResponseErrorFromJSON(json['error']),
-    };
+    if (instanceOfINVALIDDATA1(json)) {
+        return INVALIDDATA1FromJSONTyped(json, true);
+    }
+    if (instanceOfMALFORMEDREQUEST3(json)) {
+        return MALFORMEDREQUEST3FromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function BatchAnalyzeIps400ResponseToJSON(json: any): BatchAnalyzeIps400Response {
+export function BatchAnalyzeIps400ResponseToJSON(json: any): any {
     return BatchAnalyzeIps400ResponseToJSONTyped(json, false);
 }
 
@@ -65,9 +61,13 @@ export function BatchAnalyzeIps400ResponseToJSONTyped(value?: BatchAnalyzeIps400
         return value;
     }
 
-    return {
-        
-        'error': BatchAnalyzeIps400ResponseErrorToJSON(value['error']),
-    };
+    if (instanceOfINVALIDDATA1(value)) {
+        return INVALIDDATA1ToJSON(value as INVALIDDATA1);
+    }
+    if (instanceOfMALFORMEDREQUEST3(value)) {
+        return MALFORMEDREQUEST3ToJSON(value as MALFORMEDREQUEST3);
+    }
+
+    return {};
 }
 

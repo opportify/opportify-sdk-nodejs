@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface INTERNALERROR1
  */
-export interface MALFORMEDREQUEST {
+export interface INTERNALERROR1 {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof INTERNALERROR1
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof INTERNALERROR1
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the INTERNALERROR1 interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfINTERNALERROR1(value: object): value is INTERNALERROR1 {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function INTERNALERROR1FromJSON(json: any): INTERNALERROR1 {
+    return INTERNALERROR1FromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function INTERNALERROR1FromJSONTyped(json: any, ignoreDiscriminator: boolean): INTERNALERROR1 {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function INTERNALERROR1ToJSON(json: any): INTERNALERROR1 {
+    return INTERNALERROR1ToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function INTERNALERROR1ToJSONTyped(value?: INTERNALERROR1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

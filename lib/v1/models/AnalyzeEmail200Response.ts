@@ -27,6 +27,20 @@ import {
     RiskReportEmailToJSON,
     RiskReportEmailToJSONTyped,
 } from './RiskReportEmail';
+import type { EmailDomain } from './EmailDomain';
+import {
+    EmailDomainFromJSON,
+    EmailDomainFromJSONTyped,
+    EmailDomainToJSON,
+    EmailDomainToJSONTyped,
+} from './EmailDomain';
+import type { AddressSignals } from './AddressSignals';
+import {
+    AddressSignalsFromJSON,
+    AddressSignalsFromJSONTyped,
+    AddressSignalsToJSON,
+    AddressSignalsToJSONTyped,
+} from './AddressSignals';
 
 /**
  * 
@@ -35,42 +49,30 @@ import {
  */
 export interface AnalyzeEmail200Response {
     /**
-     * The validated email address.
+     * Normalized email address returned by the service (always lower-case).
      * @type {string}
      * @memberof AnalyzeEmail200Response
      */
     emailAddress: string;
     /**
-     * The email provider or domain name.
+     * Provider slug derived from the domain, or `unknown` when not classified.
      * @type {string}
      * @memberof AnalyzeEmail200Response
      */
     emailProvider: string;
     /**
-     * Type of email address (e.g., free, disposable, private, unknown).
+     * Email classification based on provider and enrichment signals.
      * @type {string}
      * @memberof AnalyzeEmail200Response
      */
-    emailType: string;
-    /**
-     * Indicates if the email address has a valid format.
-     * @type {boolean}
-     * @memberof AnalyzeEmail200Response
-     */
-    isFormatValid: boolean;
-    /**
-     * Suggested corrected email address, if applicable.
-     * @type {string}
-     * @memberof AnalyzeEmail200Response
-     */
-    emailCorrection: string;
+    emailType: AnalyzeEmail200ResponseEmailTypeEnum;
     /**
      * Checks if the email address exists and is deliverable using SMTP handshake simulation. This involves connecting to the mail server and issuing commands to verify deliverability. The possible answers are `yes`, `no`, or `unknown`. We guarantee a high confidence level on this parameter since this is a real time verification.
      * 
      * @type {string}
      * @memberof AnalyzeEmail200Response
      */
-    isDeliverable: string;
+    isDeliverable: AnalyzeEmail200ResponseIsDeliverableEnum;
     /**
      * Determines if the email domain is configured as a catch-all, which accepts emails for all addresses within the domain. This is verified through multiple email tests.
      * 
@@ -92,18 +94,65 @@ export interface AnalyzeEmail200Response {
      */
     isReachable: boolean;
     /**
+     * Indicates if the email address meets syntax validation rules.
+     * @type {boolean}
+     * @memberof AnalyzeEmail200Response
+     */
+    isFormatValid: boolean;
+    /**
+     * Suggested corrected email address when auto-correction is confident. Present only when `enableAutoCorrection` is true and a correction exists.
+     * @type {string}
+     * @memberof AnalyzeEmail200Response
+     */
+    emailCorrection?: string;
+    /**
+     * Local-part parsing details for the analyzed address. Always present; fields default to empty strings when a signal is not applicable.
+     * @type {AddressSignals}
+     * @memberof AnalyzeEmail200Response
+     */
+    addressSignals: AddressSignals;
+    /**
      * 
      * @type {EmailDNS}
      * @memberof AnalyzeEmail200Response
      */
     emailDNS: EmailDNS;
     /**
-     * 
+     * AI-generated risk report detailing the evaluated risk bucket. Returned only when `enableAI` is true.
      * @type {RiskReportEmail}
      * @memberof AnalyzeEmail200Response
      */
-    riskReport: RiskReportEmail;
+    riskReport?: RiskReportEmail;
+    /**
+     * Domain summary derived from enrichment providers. Omitted when enrichment is unavailable or `enableDomainEnrichment` is set to `false`.
+     * @type {EmailDomain}
+     * @memberof AnalyzeEmail200Response
+     */
+    domain?: EmailDomain;
 }
+
+
+/**
+ * @export
+ */
+export const AnalyzeEmail200ResponseEmailTypeEnum = {
+    Private: 'private',
+    Free: 'free',
+    Disposable: 'disposable',
+    Unknown: 'unknown'
+} as const;
+export type AnalyzeEmail200ResponseEmailTypeEnum = typeof AnalyzeEmail200ResponseEmailTypeEnum[keyof typeof AnalyzeEmail200ResponseEmailTypeEnum];
+
+/**
+ * @export
+ */
+export const AnalyzeEmail200ResponseIsDeliverableEnum = {
+    True: 'true',
+    False: 'false',
+    Unknown: 'unknown'
+} as const;
+export type AnalyzeEmail200ResponseIsDeliverableEnum = typeof AnalyzeEmail200ResponseIsDeliverableEnum[keyof typeof AnalyzeEmail200ResponseIsDeliverableEnum];
+
 
 /**
  * Check if a given object implements the AnalyzeEmail200Response interface.
@@ -112,14 +161,13 @@ export function instanceOfAnalyzeEmail200Response(value: object): value is Analy
     if (!('emailAddress' in value) || value['emailAddress'] === undefined) return false;
     if (!('emailProvider' in value) || value['emailProvider'] === undefined) return false;
     if (!('emailType' in value) || value['emailType'] === undefined) return false;
-    if (!('isFormatValid' in value) || value['isFormatValid'] === undefined) return false;
-    if (!('emailCorrection' in value) || value['emailCorrection'] === undefined) return false;
     if (!('isDeliverable' in value) || value['isDeliverable'] === undefined) return false;
     if (!('isCatchAll' in value) || value['isCatchAll'] === undefined) return false;
     if (!('isMailboxFull' in value) || value['isMailboxFull'] === undefined) return false;
     if (!('isReachable' in value) || value['isReachable'] === undefined) return false;
+    if (!('isFormatValid' in value) || value['isFormatValid'] === undefined) return false;
+    if (!('addressSignals' in value) || value['addressSignals'] === undefined) return false;
     if (!('emailDNS' in value) || value['emailDNS'] === undefined) return false;
-    if (!('riskReport' in value) || value['riskReport'] === undefined) return false;
     return true;
 }
 
@@ -136,14 +184,16 @@ export function AnalyzeEmail200ResponseFromJSONTyped(json: any, ignoreDiscrimina
         'emailAddress': json['emailAddress'],
         'emailProvider': json['emailProvider'],
         'emailType': json['emailType'],
-        'isFormatValid': json['isFormatValid'],
-        'emailCorrection': json['emailCorrection'],
         'isDeliverable': json['isDeliverable'],
         'isCatchAll': json['isCatchAll'],
         'isMailboxFull': json['isMailboxFull'],
         'isReachable': json['isReachable'],
+        'isFormatValid': json['isFormatValid'],
+        'emailCorrection': json['emailCorrection'] == null ? undefined : json['emailCorrection'],
+        'addressSignals': AddressSignalsFromJSON(json['addressSignals']),
         'emailDNS': EmailDNSFromJSON(json['emailDNS']),
-        'riskReport': RiskReportEmailFromJSON(json['riskReport']),
+        'riskReport': json['riskReport'] == null ? undefined : RiskReportEmailFromJSON(json['riskReport']),
+        'domain': json['domain'] == null ? undefined : EmailDomainFromJSON(json['domain']),
     };
 }
 
@@ -161,14 +211,16 @@ export function AnalyzeEmail200ResponseToJSONTyped(value?: AnalyzeEmail200Respon
         'emailAddress': value['emailAddress'],
         'emailProvider': value['emailProvider'],
         'emailType': value['emailType'],
-        'isFormatValid': value['isFormatValid'],
-        'emailCorrection': value['emailCorrection'],
         'isDeliverable': value['isDeliverable'],
         'isCatchAll': value['isCatchAll'],
         'isMailboxFull': value['isMailboxFull'],
         'isReachable': value['isReachable'],
+        'isFormatValid': value['isFormatValid'],
+        'emailCorrection': value['emailCorrection'],
+        'addressSignals': AddressSignalsToJSON(value['addressSignals']),
         'emailDNS': EmailDNSToJSON(value['emailDNS']),
         'riskReport': RiskReportEmailToJSON(value['riskReport']),
+        'domain': EmailDomainToJSON(value['domain']),
     };
 }
 

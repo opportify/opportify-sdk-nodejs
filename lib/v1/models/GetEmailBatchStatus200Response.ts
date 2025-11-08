@@ -34,6 +34,12 @@ export interface GetEmailBatchStatus200Response {
      */
     jobId?: string;
     /**
+     * Name of the batch job, if provided.
+     * @type {string}
+     * @memberof GetEmailBatchStatus200Response
+     */
+    name?: string;
+    /**
      * Current status of the batch job.
      * @type {string}
      * @memberof GetEmailBatchStatus200Response
@@ -90,6 +96,7 @@ export function GetEmailBatchStatus200ResponseFromJSONTyped(json: any, ignoreDis
     return {
         
         'jobId': json['jobId'] == null ? undefined : json['jobId'],
+        'name': json['name'] == null ? undefined : json['name'],
         'status': json['status'] == null ? undefined : json['status'],
         'statusDescription': json['statusDescription'] == null ? undefined : json['statusDescription'],
         'progress': json['progress'] == null ? undefined : json['progress'],
@@ -109,6 +116,7 @@ export function GetEmailBatchStatus200ResponseToJSONTyped(value?: GetEmailBatchS
     return {
         
         'jobId': value['jobId'],
+        'name': value['name'],
         'status': value['status'],
         'statusDescription': value['statusDescription'],
         'progress': value['progress'],

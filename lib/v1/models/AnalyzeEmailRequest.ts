@@ -26,17 +26,23 @@ export interface AnalyzeEmailRequest {
      */
     email: string;
     /**
-     * Enable AI-based analysis for insights.
+     * Enable AI-driven risk analysis. Optional; defaults to `true`.
      * @type {boolean}
      * @memberof AnalyzeEmailRequest
      */
     enableAI?: boolean;
     /**
-     * Suggest possible corrections for misspelled emails.
+     * Attempt typo correction and return `emailCorrection` when confident. Optional; defaults to `true`.
      * @type {boolean}
      * @memberof AnalyzeEmailRequest
      */
     enableAutoCorrection?: boolean;
+    /**
+     * Include domain-level enrichment details. Optional; defaults to `true`. Set to `false` to omit the `domain` block even when the data exists.
+     * @type {boolean}
+     * @memberof AnalyzeEmailRequest
+     */
+    enableDomainEnrichment?: boolean;
 }
 
 /**
@@ -60,6 +66,7 @@ export function AnalyzeEmailRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'email': json['email'],
         'enableAI': json['enableAI'] == null ? undefined : json['enableAI'],
         'enableAutoCorrection': json['enableAutoCorrection'] == null ? undefined : json['enableAutoCorrection'],
+        'enableDomainEnrichment': json['enableDomainEnrichment'] == null ? undefined : json['enableDomainEnrichment'],
     };
 }
 
@@ -77,6 +84,7 @@ export function AnalyzeEmailRequestToJSONTyped(value?: AnalyzeEmailRequest | nul
         'email': value['email'],
         'enableAI': value['enableAI'],
         'enableAutoCorrection': value['enableAutoCorrection'],
+        'enableDomainEnrichment': value['enableDomainEnrichment'],
     };
 }
 

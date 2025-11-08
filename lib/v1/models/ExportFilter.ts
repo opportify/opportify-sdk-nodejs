@@ -14,60 +14,98 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * Describes a filter applied to an export.
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface ExportFilter
  */
-export interface MALFORMEDREQUEST {
+export interface ExportFilter {
     /**
-     * 
+     * The field path that was filtered (supports dot notation for nested fields).
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof ExportFilter
      */
-    errorMessage?: string;
+    field: string;
     /**
-     * 
+     * The type of filter applied.
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof ExportFilter
      */
-    errorCode?: string;
+    kind: ExportFilterKindEnum;
+    /**
+     * Array of values for string filters.
+     * @type {Array<string>}
+     * @memberof ExportFilter
+     */
+    values?: Array<string>;
+    /**
+     * Minimum value for numeric range filters.
+     * @type {number}
+     * @memberof ExportFilter
+     */
+    min?: number;
+    /**
+     * Maximum value for numeric range filters.
+     * @type {number}
+     * @memberof ExportFilter
+     */
+    max?: number;
 }
 
+
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * @export
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export const ExportFilterKindEnum = {
+    String: 'string',
+    NumberRange: 'number-range',
+    Number: 'number'
+} as const;
+export type ExportFilterKindEnum = typeof ExportFilterKindEnum[keyof typeof ExportFilterKindEnum];
+
+
+/**
+ * Check if a given object implements the ExportFilter interface.
+ */
+export function instanceOfExportFilter(value: object): value is ExportFilter {
+    if (!('field' in value) || value['field'] === undefined) return false;
+    if (!('kind' in value) || value['kind'] === undefined) return false;
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function ExportFilterFromJSON(json: any): ExportFilter {
+    return ExportFilterFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function ExportFilterFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportFilter {
     if (json == null) {
         return json;
     }
     return {
         
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
+        'field': json['field'],
+        'kind': json['kind'],
+        'values': json['values'] == null ? undefined : json['values'],
+        'min': json['min'] == null ? undefined : json['min'],
+        'max': json['max'] == null ? undefined : json['max'],
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function ExportFilterToJSON(json: any): ExportFilter {
+    return ExportFilterToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function ExportFilterToJSONTyped(value?: ExportFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
+        'field': value['field'],
+        'kind': value['kind'],
+        'values': value['values'],
+        'min': value['min'],
+        'max': value['max'],
     };
 }
 

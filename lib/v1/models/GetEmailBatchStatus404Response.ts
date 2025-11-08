@@ -13,14 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { GetEmailBatchStatus404ResponseError } from './GetEmailBatchStatus404ResponseError';
-import {
-    GetEmailBatchStatus404ResponseErrorFromJSON,
-    GetEmailBatchStatus404ResponseErrorFromJSONTyped,
-    GetEmailBatchStatus404ResponseErrorToJSON,
-    GetEmailBatchStatus404ResponseErrorToJSONTyped,
-} from './GetEmailBatchStatus404ResponseError';
-
 /**
  * 
  * @export
@@ -29,10 +21,16 @@ import {
 export interface GetEmailBatchStatus404Response {
     /**
      * 
-     * @type {GetEmailBatchStatus404ResponseError}
+     * @type {string}
      * @memberof GetEmailBatchStatus404Response
      */
-    error?: GetEmailBatchStatus404ResponseError;
+    errorMessage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailBatchStatus404Response
+     */
+    errorCode?: string;
 }
 
 /**
@@ -52,7 +50,8 @@ export function GetEmailBatchStatus404ResponseFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'error': json['error'] == null ? undefined : GetEmailBatchStatus404ResponseErrorFromJSON(json['error']),
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -67,7 +66,8 @@ export function GetEmailBatchStatus404ResponseToJSONTyped(value?: GetEmailBatchS
 
     return {
         
-        'error': GetEmailBatchStatus404ResponseErrorToJSON(value['error']),
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

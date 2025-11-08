@@ -1,5 +1,5 @@
 import { ErrorResponse } from './types';
-import { EmailInsightsApi, GetEmailBatchStatusRequest } from '../lib/v1/apis/EmailInsightsApi';
+import { CreateEmailBatchExportRequest, EmailInsightsApi, GetEmailBatchExportStatusRequest, GetEmailBatchStatusRequest } from '../lib/v1/apis/EmailInsightsApi';
 import { AnalyzeEmailRequest  } from '../lib/v1/models/AnalyzeEmailRequest';
 import { Configuration } from '../lib/v1/runtime';
 import { BatchAnalyzeEmailsRequest } from '../lib/v1/models/BatchAnalyzeEmailsRequest';
@@ -18,11 +18,7 @@ export class EmailInsights {
   public async analyze (request: AnalyzeEmailRequest) {
     try {
         return await this.emailInsightsApi.analyzeEmail({
-            analyzeEmailRequest: {
-                email: request.email,
-                enableAutoCorrection: request.enableAutoCorrection,
-                enableAI: request.enableAI,
-            }
+            analyzeEmailRequest: request
         });
     } catch (error) {
         const errorResponse = await error.response.json() as ErrorResponse;
@@ -33,11 +29,7 @@ export class EmailInsights {
   public async batchAnalyze (request: BatchAnalyzeEmailsRequest) {
     try {
         return await this.emailInsightsApi.batchAnalyzeEmails({
-            batchAnalyzeEmailsRequest: {
-                emails: request.emails,
-                enableAutoCorrection: request.enableAutoCorrection,
-                enableAI: request.enableAI,
-            }
+            batchAnalyzeEmailsRequest: request
         });
     } catch (error) {
         const errorResponse = await error.response.json() as ErrorResponse;
@@ -48,6 +40,24 @@ export class EmailInsights {
   public async getBatchStatus (request: GetEmailBatchStatusRequest ) {
     try {
         return await this.emailInsightsApi.getEmailBatchStatus(request);
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+
+  public async createEmailBatchExport (request: CreateEmailBatchExportRequest) {
+    try {
+        return await this.emailInsightsApi.createEmailBatchExport(request);
+    } catch (error) {
+        const errorResponse = await error.response.json() as ErrorResponse;
+        throw errorResponse;
+    }
+  };
+
+  public async getEmailBatchExportStatus (request: GetEmailBatchExportStatusRequest ) {
+    try {
+        return await this.emailInsightsApi.getEmailBatchExportStatus(request);
     } catch (error) {
         const errorResponse = await error.response.json() as ErrorResponse;
         throw errorResponse;

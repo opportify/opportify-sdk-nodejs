@@ -16,58 +16,87 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface BatchAnalyzeIps202Response
  */
-export interface MALFORMEDREQUEST {
+export interface BatchAnalyzeIps202Response {
     /**
-     * 
+     * Unique identifier for the batch job.
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof BatchAnalyzeIps202Response
      */
-    errorMessage?: string;
+    jobId?: string;
     /**
-     * 
+     * Name of the batch job, if provided.
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof BatchAnalyzeIps202Response
      */
-    errorCode?: string;
+    name?: string;
+    /**
+     * Current status of the batch job.
+     * @type {string}
+     * @memberof BatchAnalyzeIps202Response
+     */
+    status?: BatchAnalyzeIps202ResponseStatusEnum;
+    /**
+     * Description of the status, particularly useful when status is ERROR.
+     * @type {string}
+     * @memberof BatchAnalyzeIps202Response
+     */
+    statusDescription?: string;
 }
 
+
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * @export
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export const BatchAnalyzeIps202ResponseStatusEnum = {
+    Queued: 'QUEUED',
+    Processing: 'PROCESSING',
+    Completed: 'COMPLETED',
+    Error: 'ERROR'
+} as const;
+export type BatchAnalyzeIps202ResponseStatusEnum = typeof BatchAnalyzeIps202ResponseStatusEnum[keyof typeof BatchAnalyzeIps202ResponseStatusEnum];
+
+
+/**
+ * Check if a given object implements the BatchAnalyzeIps202Response interface.
+ */
+export function instanceOfBatchAnalyzeIps202Response(value: object): value is BatchAnalyzeIps202Response {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function BatchAnalyzeIps202ResponseFromJSON(json: any): BatchAnalyzeIps202Response {
+    return BatchAnalyzeIps202ResponseFromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function BatchAnalyzeIps202ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): BatchAnalyzeIps202Response {
     if (json == null) {
         return json;
     }
     return {
         
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
+        'jobId': json['jobId'] == null ? undefined : json['jobId'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'status': json['status'] == null ? undefined : json['status'],
+        'statusDescription': json['statusDescription'] == null ? undefined : json['statusDescription'],
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function BatchAnalyzeIps202ResponseToJSON(json: any): BatchAnalyzeIps202Response {
+    return BatchAnalyzeIps202ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function BatchAnalyzeIps202ResponseToJSONTyped(value?: BatchAnalyzeIps202Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
+        'jobId': value['jobId'],
+        'name': value['name'],
+        'status': value['status'],
+        'statusDescription': value['statusDescription'],
     };
 }
 

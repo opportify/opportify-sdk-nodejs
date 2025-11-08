@@ -26,6 +26,12 @@ export interface BatchAnalyzeEmails202Response {
      */
     jobId?: string;
     /**
+     * Name of the batch job, if provided.
+     * @type {string}
+     * @memberof BatchAnalyzeEmails202Response
+     */
+    name?: string;
+    /**
      * Current status of the batch job.
      * @type {string}
      * @memberof BatchAnalyzeEmails202Response
@@ -70,6 +76,7 @@ export function BatchAnalyzeEmails202ResponseFromJSONTyped(json: any, ignoreDisc
     return {
         
         'jobId': json['jobId'] == null ? undefined : json['jobId'],
+        'name': json['name'] == null ? undefined : json['name'],
         'status': json['status'] == null ? undefined : json['status'],
         'statusDescription': json['statusDescription'] == null ? undefined : json['statusDescription'],
     };
@@ -87,6 +94,7 @@ export function BatchAnalyzeEmails202ResponseToJSONTyped(value?: BatchAnalyzeEma
     return {
         
         'jobId': value['jobId'],
+        'name': value['name'],
         'status': value['status'],
         'statusDescription': value['statusDescription'],
     };

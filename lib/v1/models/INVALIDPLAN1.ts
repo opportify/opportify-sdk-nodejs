@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MALFORMEDREQUEST
+ * @interface INVALIDPLAN1
  */
-export interface MALFORMEDREQUEST {
+export interface INVALIDPLAN1 {
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof INVALIDPLAN1
      */
     errorMessage?: string;
     /**
      * 
      * @type {string}
-     * @memberof MALFORMEDREQUEST
+     * @memberof INVALIDPLAN1
      */
     errorCode?: string;
 }
 
 /**
- * Check if a given object implements the MALFORMEDREQUEST interface.
+ * Check if a given object implements the INVALIDPLAN1 interface.
  */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
+export function instanceOfINVALIDPLAN1(value: object): value is INVALIDPLAN1 {
     return true;
 }
 
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
+export function INVALIDPLAN1FromJSON(json: any): INVALIDPLAN1 {
+    return INVALIDPLAN1FromJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function INVALIDPLAN1FromJSONTyped(json: any, ignoreDiscriminator: boolean): INVALIDPLAN1 {
     if (json == null) {
         return json;
     }
@@ -55,11 +55,11 @@ export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function INVALIDPLAN1ToJSON(json: any): INVALIDPLAN1 {
+    return INVALIDPLAN1ToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function INVALIDPLAN1ToJSONTyped(value?: INVALIDPLAN1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

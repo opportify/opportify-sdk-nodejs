@@ -13,14 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { BatchAnalyzeEmails413ResponseError } from './BatchAnalyzeEmails413ResponseError';
-import {
-    BatchAnalyzeEmails413ResponseErrorFromJSON,
-    BatchAnalyzeEmails413ResponseErrorFromJSONTyped,
-    BatchAnalyzeEmails413ResponseErrorToJSON,
-    BatchAnalyzeEmails413ResponseErrorToJSONTyped,
-} from './BatchAnalyzeEmails413ResponseError';
-
 /**
  * 
  * @export
@@ -29,10 +21,16 @@ import {
 export interface BatchAnalyzeEmails413Response {
     /**
      * 
-     * @type {BatchAnalyzeEmails413ResponseError}
+     * @type {string}
      * @memberof BatchAnalyzeEmails413Response
      */
-    error?: BatchAnalyzeEmails413ResponseError;
+    errorMessage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BatchAnalyzeEmails413Response
+     */
+    errorCode?: string;
 }
 
 /**
@@ -52,7 +50,8 @@ export function BatchAnalyzeEmails413ResponseFromJSONTyped(json: any, ignoreDisc
     }
     return {
         
-        'error': json['error'] == null ? undefined : BatchAnalyzeEmails413ResponseErrorFromJSON(json['error']),
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -67,7 +66,8 @@ export function BatchAnalyzeEmails413ResponseToJSONTyped(value?: BatchAnalyzeEma
 
     return {
         
-        'error': BatchAnalyzeEmails413ResponseErrorToJSON(value['error']),
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 

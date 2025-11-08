@@ -12,62 +12,62 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import type { EXPORTNOTFOUND } from './EXPORTNOTFOUND';
+import {
+    instanceOfEXPORTNOTFOUND,
+    EXPORTNOTFOUNDFromJSON,
+    EXPORTNOTFOUNDFromJSONTyped,
+    EXPORTNOTFOUNDToJSON,
+} from './EXPORTNOTFOUND';
+import type { JOBNOTFOUND } from './JOBNOTFOUND';
+import {
+    instanceOfJOBNOTFOUND,
+    JOBNOTFOUNDFromJSON,
+    JOBNOTFOUNDFromJSONTyped,
+    JOBNOTFOUNDToJSON,
+} from './JOBNOTFOUND';
+
 /**
+ * @type GetEmailBatchExportStatus404Response
  * 
  * @export
- * @interface MALFORMEDREQUEST
  */
-export interface MALFORMEDREQUEST {
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorMessage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MALFORMEDREQUEST
-     */
-    errorCode?: string;
+export type GetEmailBatchExportStatus404Response = EXPORTNOTFOUND | JOBNOTFOUND;
+
+export function GetEmailBatchExportStatus404ResponseFromJSON(json: any): GetEmailBatchExportStatus404Response {
+    return GetEmailBatchExportStatus404ResponseFromJSONTyped(json, false);
 }
 
-/**
- * Check if a given object implements the MALFORMEDREQUEST interface.
- */
-export function instanceOfMALFORMEDREQUEST(value: object): value is MALFORMEDREQUEST {
-    return true;
-}
-
-export function MALFORMEDREQUESTFromJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTFromJSONTyped(json, false);
-}
-
-export function MALFORMEDREQUESTFromJSONTyped(json: any, ignoreDiscriminator: boolean): MALFORMEDREQUEST {
+export function GetEmailBatchExportStatus404ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetEmailBatchExportStatus404Response {
     if (json == null) {
         return json;
     }
-    return {
-        
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
-    };
+    if (instanceOfEXPORTNOTFOUND(json)) {
+        return EXPORTNOTFOUNDFromJSONTyped(json, true);
+    }
+    if (instanceOfJOBNOTFOUND(json)) {
+        return JOBNOTFOUNDFromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function MALFORMEDREQUESTToJSON(json: any): MALFORMEDREQUEST {
-    return MALFORMEDREQUESTToJSONTyped(json, false);
+export function GetEmailBatchExportStatus404ResponseToJSON(json: any): any {
+    return GetEmailBatchExportStatus404ResponseToJSONTyped(json, false);
 }
 
-export function MALFORMEDREQUESTToJSONTyped(value?: MALFORMEDREQUEST | null, ignoreDiscriminator: boolean = false): any {
+export function GetEmailBatchExportStatus404ResponseToJSONTyped(value?: GetEmailBatchExportStatus404Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
-    return {
-        
-        'errorMessage': value['errorMessage'],
-        'errorCode': value['errorCode'],
-    };
+    if (instanceOfEXPORTNOTFOUND(value)) {
+        return EXPORTNOTFOUNDToJSON(value as EXPORTNOTFOUND);
+    }
+    if (instanceOfJOBNOTFOUND(value)) {
+        return JOBNOTFOUNDToJSON(value as JOBNOTFOUND);
+    }
+
+    return {};
 }
 

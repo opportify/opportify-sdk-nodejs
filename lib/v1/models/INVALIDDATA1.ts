@@ -24,13 +24,13 @@ export interface INVALIDDATA1 {
      * @type {string}
      * @memberof INVALIDDATA1
      */
-    message?: string;
+    errorMessage?: string;
     /**
      * 
      * @type {string}
      * @memberof INVALIDDATA1
      */
-    code?: string;
+    errorCode?: string;
 }
 
 /**
@@ -50,8 +50,8 @@ export function INVALIDDATA1FromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
-        'code': json['code'] == null ? undefined : json['code'],
+        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
     };
 }
 
@@ -66,8 +66,8 @@ export function INVALIDDATA1ToJSONTyped(value?: INVALIDDATA1 | null, ignoreDiscr
 
     return {
         
-        'message': value['message'],
-        'code': value['code'],
+        'errorMessage': value['errorMessage'],
+        'errorCode': value['errorCode'],
     };
 }
 
