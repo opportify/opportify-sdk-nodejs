@@ -78,9 +78,10 @@ export const toErrorResponse = async (error: unknown): Promise<ErrorResponse> =>
   if (error && typeof error === 'object') {
     const response = (error as { response?: Response }).response;
     if (response) {
+      const statusText = response.statusText?.trim();
       const fallback: ErrorResponse = {
         errorCode: normalizeFallbackCode(response.status),
-        errorMessage: response.statusText?.trim().length ? response.statusText : DEFAULT_ERROR_MESSAGE,
+        errorMessage: statusText && statusText.length > 0 ? statusText : DEFAULT_ERROR_MESSAGE,
       };
 
       const jsonPayload = await parseJsonSafely(response);
