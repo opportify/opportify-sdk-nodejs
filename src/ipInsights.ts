@@ -2,7 +2,7 @@ import { CreateIpBatchExportRequest, GetIpBatchExportStatusRequest, GetIpBatchSt
 import { AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
 import { BatchAnalyzeIpsRequest } from '../lib/v1/models/BatchAnalyzeIpsRequest';
 import { Configuration } from '../lib/v1/runtime';
-import { ErrorResponse } from './types';
+import { toErrorResponse } from './errorUtils';
 
 export class IPInsights {
   private ipInsightsApi: IPInsightsApi;
@@ -24,8 +24,7 @@ export class IPInsights {
             }
         });
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
 
@@ -38,8 +37,7 @@ export class IPInsights {
             }
         });
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
 
@@ -47,26 +45,23 @@ export class IPInsights {
     try {
         return await this.ipInsightsApi.getIpBatchStatus(request);
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
   
-    public async createIpBatchExport (request: CreateIpBatchExportRequest) {
-      try {
-          return await this.ipInsightsApi.createIpBatchExport(request);
-      } catch (error) {
-          const errorResponse = await error.response.json() as ErrorResponse;
-          throw errorResponse;
-      }
-    };
+  public async createIpBatchExport (request: CreateIpBatchExportRequest) {
+    try {
+        return await this.ipInsightsApi.createIpBatchExport(request);
+    } catch (error) {
+        throw await toErrorResponse(error);
+    }
+  };
 
-    public async getIpBatchExportStatus (request: GetIpBatchExportStatusRequest ) {
-      try {
-          return await this.ipInsightsApi.getIpBatchExportStatus(request);
-      } catch (error) {
-          const errorResponse = await error.response.json() as ErrorResponse;
-          throw errorResponse;
-      }
-    };
+  public async getIpBatchExportStatus (request: GetIpBatchExportStatusRequest ) {
+    try {
+        return await this.ipInsightsApi.getIpBatchExportStatus(request);
+    } catch (error) {
+        throw await toErrorResponse(error);
+    }
+  };
 }

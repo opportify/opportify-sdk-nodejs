@@ -1,8 +1,8 @@
-import { ErrorResponse } from './types';
 import { CreateEmailBatchExportRequest, EmailInsightsApi, GetEmailBatchExportStatusRequest, GetEmailBatchStatusRequest } from '../lib/v1/apis/EmailInsightsApi';
-import { AnalyzeEmailRequest  } from '../lib/v1/models/AnalyzeEmailRequest';
+import { AnalyzeEmailRequest } from '../lib/v1/models/AnalyzeEmailRequest';
 import { Configuration } from '../lib/v1/runtime';
 import { BatchAnalyzeEmailsRequest } from '../lib/v1/models/BatchAnalyzeEmailsRequest';
+import { toErrorResponse } from './errorUtils';
 
 export class EmailInsights {
   private emailInsightsApi: EmailInsightsApi;
@@ -21,8 +21,7 @@ export class EmailInsights {
             analyzeEmailRequest: request
         });
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
 
@@ -32,8 +31,7 @@ export class EmailInsights {
             batchAnalyzeEmailsRequest: request
         });
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
   
@@ -41,8 +39,7 @@ export class EmailInsights {
     try {
         return await this.emailInsightsApi.getEmailBatchStatus(request);
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
 
@@ -50,8 +47,7 @@ export class EmailInsights {
     try {
         return await this.emailInsightsApi.createEmailBatchExport(request);
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
 
@@ -59,8 +55,7 @@ export class EmailInsights {
     try {
         return await this.emailInsightsApi.getEmailBatchExportStatus(request);
     } catch (error) {
-        const errorResponse = await error.response.json() as ErrorResponse;
-        throw errorResponse;
+        throw await toErrorResponse(error);
     }
   };
 }
