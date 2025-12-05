@@ -57,6 +57,7 @@ const normalizeJsonPayload = (
   return undefined;
 };
 
+// Clone the response before reading so callers can still access the original body stream.
 const parseJsonSafely = async (response: Response): Promise<unknown | undefined> => {
   try {
     return await response.clone().json();
@@ -65,6 +66,7 @@ const parseJsonSafely = async (response: Response): Promise<unknown | undefined>
   }
 };
 
+// Clone again for text parsing to avoid exhausting the main response body.
 const parseTextSafely = async (response: Response): Promise<string | undefined> => {
   try {
     const text = await response.clone().text();
