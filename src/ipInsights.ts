@@ -26,7 +26,7 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async batchAnalyze (request: BatchAnalyzeIpsRequest) {
     try {
@@ -40,7 +40,7 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async getBatchStatus (request: GetIpBatchStatusRequest ) {
     try {
@@ -48,7 +48,7 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
   
   public async createIpBatchExport (request: CreateIpBatchExportRequest) {
     try {
@@ -56,7 +56,7 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async getIpBatchExportStatus (request: GetIpBatchExportStatusRequest ) {
     try {
@@ -64,5 +64,5 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 }

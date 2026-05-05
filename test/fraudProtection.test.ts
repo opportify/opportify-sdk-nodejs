@@ -32,6 +32,41 @@ describe('FraudProtection', () => {
     });
   });
 
+  it('analyzeFraud() passes all optional fields', async () => {
+    MockedFraudProtectionApi.prototype.analyzeFraud = jest.fn().mockResolvedValue({});
+
+    const client = new FraudProtection({ apiKey: 'test-key' });
+    await client.analyzeFraud({
+      email: 'user@example.com',
+      userIp: '192.0.2.1',
+      phone1: '+15550001234',
+      phone2: '+15550005678',
+      firstName: 'John',
+    });
+
+    expect(MockedFraudProtectionApi.prototype.analyzeFraud).toHaveBeenCalledWith({
+      analyzeFraudRequest: {
+        email: 'user@example.com',
+        userIp: '192.0.2.1',
+        phone1: '+15550001234',
+        phone2: '+15550005678',
+        firstName: 'John',
+      },
+    });
+  });
+
+  it('analyzeFraud() works with only userIp (email is optional)', async () => {
+    MockedFraudProtectionApi.prototype.analyzeFraud = jest.fn().mockResolvedValue({ score: 10 });
+
+    const client = new FraudProtection({ apiKey: 'test-key' });
+    const result = await client.analyzeFraud({ userIp: '10.0.0.1' });
+
+    expect(result).toEqual({ score: 10 });
+    expect(MockedFraudProtectionApi.prototype.analyzeFraud).toHaveBeenCalledWith({
+      analyzeFraudRequest: { userIp: '10.0.0.1' },
+    });
+  });
+
   it('analyzeFraud() throws on API error', async () => {
     MockedFraudProtectionApi.prototype.analyzeFraud = jest.fn().mockRejectedValue(new Error('API error'));
 
