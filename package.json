@@ -45,16 +45,28 @@
   "scripts": {
     "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json",
     "build:cjs": "tsc -b ./tsconfig.cjs.json",
-    "build:es": "tsc -b ./tsconfig.esm.json"
+    "build:es": "tsc -b ./tsconfig.esm.json",
+    "test": "jest"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.0",
     "@types/node": "^22.9.3",
     "@types/node-fetch": "^2.6.12",
     "@types/request": "^2.48.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "node-fetch": "^3.3.2",
     "user": "^0.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": ["**/test/**/*.test.ts"],
+    "moduleNameMapper": {
+      "^node-fetch$": "<rootDir>/node_modules/node-fetch/src/index.js"
+    }
   }
 }

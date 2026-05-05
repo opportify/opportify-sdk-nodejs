@@ -20,4 +20,6 @@ phpunit.xml.dist
 coverage/
 node_modules
 dist
-opportify-sdk-nodejs-1.0.0.tgz
+opportify-sdk-nodejs-1.0.0.tgzopenapi-*.yml
+openapi-*.yaml
+openapi-*.yml
