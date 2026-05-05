@@ -7,7 +7,7 @@ import { toErrorResponse } from './errorUtils';
 export class IPInsights {
   private ipInsightsApi: IPInsightsApi;
 
-  constructor(config) {
+  constructor(config: { apiKey: string; basePath?: string }) {
       const defaultConfig = new Configuration({
           apiKey: config.apiKey,
           basePath: config.basePath,
@@ -33,6 +33,7 @@ export class IPInsights {
         return await this.ipInsightsApi.batchAnalyzeIps({
             batchAnalyzeIpsRequest: {
                 ips: request.ips,
+                name: request.name,
                 enableAI: request.enableAI,
             }
         });

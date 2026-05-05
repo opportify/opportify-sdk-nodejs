@@ -1,7 +1,9 @@
 export { EmailInsights } from './emailInsights';
 export { type AnalyzeEmailRequest } from '../lib/v1/models/AnalyzeEmailRequest';
+export { type BatchAnalyzeEmailsRequest } from '../lib/v1/models/BatchAnalyzeEmailsRequest';
 export { IPInsights } from './ipInsights';
 export { type AnalyzeIpRequest } from '../lib/v1/models/AnalyzeIpRequest';
+export { type BatchAnalyzeIpsRequest } from '../lib/v1/models/BatchAnalyzeIpsRequest';
 export { type Configuration } from '../lib/v1/runtime';
 export { type ErrorResponse } from './types';
 export type { AnalyzeEmail200Response } from '../lib/v1/models/AnalyzeEmail200Response';

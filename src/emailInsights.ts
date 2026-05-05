@@ -7,7 +7,7 @@ import { toErrorResponse } from './errorUtils';
 export class EmailInsights {
   private emailInsightsApi: EmailInsightsApi;
 
-  constructor(config) {
+  constructor(config: { apiKey: string; basePath?: string }) {
       const defaultConfig = new Configuration({
           apiKey: config.apiKey,
           basePath: config.basePath,
