@@ -33,7 +33,7 @@ describe('IPInsights', () => {
     MockedIPInsightsApi.prototype.analyzeIp = jest.fn().mockRejectedValue(new Error('API error'));
 
     const client = new IPInsights({ apiKey: 'test-key' });
-    await expect(client.analyze({ ip: '0.0.0.0' })).rejects.toBeDefined();
+    await expect(client.analyze({ ip: '0.0.0.0' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'API error' });
   });
 
   it('batchAnalyze() returns response on success', async () => {
@@ -65,7 +65,7 @@ describe('IPInsights', () => {
     MockedIPInsightsApi.prototype.batchAnalyzeIps = jest.fn().mockRejectedValue(new Error('API error'));
 
     const client = new IPInsights({ apiKey: 'test-key' });
-    await expect(client.batchAnalyze({ ips: ['8.8.8.8'] })).rejects.toBeDefined();
+    await expect(client.batchAnalyze({ ips: ['8.8.8.8'] })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'API error' });
   });
 
   it('getBatchStatus() returns response on success', async () => {
@@ -83,7 +83,7 @@ describe('IPInsights', () => {
     MockedIPInsightsApi.prototype.getIpBatchStatus = jest.fn().mockRejectedValue(new Error('Not found'));
 
     const client = new IPInsights({ apiKey: 'test-key' });
-    await expect(client.getBatchStatus({ jobId: 'bad-id' })).rejects.toBeDefined();
+    await expect(client.getBatchStatus({ jobId: 'bad-id' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'Not found' });
   });
 
   it('createIpBatchExport() returns export response on success', async () => {
@@ -107,7 +107,7 @@ describe('IPInsights', () => {
     MockedIPInsightsApi.prototype.createIpBatchExport = jest.fn().mockRejectedValue(new Error('Not found'));
 
     const client = new IPInsights({ apiKey: 'test-key' });
-    await expect(client.createIpBatchExport({ jobId: 'bad-id' })).rejects.toBeDefined();
+    await expect(client.createIpBatchExport({ jobId: 'bad-id' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'Not found' });
   });
 
   it('getIpBatchExportStatus() returns status on success', async () => {
@@ -130,6 +130,6 @@ describe('IPInsights', () => {
     const client = new IPInsights({ apiKey: 'test-key' });
     await expect(
       client.getIpBatchExportStatus({ jobId: 'bad-id', exportId: 'bad-exp' })
-    ).rejects.toBeDefined();
+    ).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'Not found' });
   });
 });

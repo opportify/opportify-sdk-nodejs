@@ -90,7 +90,7 @@ export class FraudProtectionApi extends runtime.BaseAPI implements FraudProtecti
             headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
         }
 
-        let urlPath = `/fraud/analyze`;
+        const urlPath = `/fraud/analyze`;
 
         const response = await this.request({
             path: urlPath,

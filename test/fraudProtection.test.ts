@@ -71,6 +71,6 @@ describe('FraudProtection', () => {
     MockedFraudProtectionApi.prototype.analyzeFraud = jest.fn().mockRejectedValue(new Error('API error'));
 
     const client = new FraudProtection({ apiKey: 'test-key' });
-    await expect(client.analyzeFraud({ email: 'bad@example.com' })).rejects.toBeDefined();
+    await expect(client.analyzeFraud({ email: 'bad@example.com' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'API error' });
   });
 });

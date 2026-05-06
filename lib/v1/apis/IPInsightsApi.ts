@@ -225,7 +225,7 @@ export class IPInsightsApi extends runtime.BaseAPI implements IPInsightsApiInter
             headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
         }
 
-        let urlPath = `/ip/analyze`;
+        const urlPath = `/ip/analyze`;
 
         const response = await this.request({
             path: urlPath,
@@ -269,7 +269,7 @@ export class IPInsightsApi extends runtime.BaseAPI implements IPInsightsApiInter
             headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
         }
 
-        let urlPath = `/ip/batch`;
+        const urlPath = `/ip/batch`;
 
         const response = await this.request({
             path: urlPath,

@@ -64,6 +64,6 @@ describe('EmailInsightsApi', () => {
 
     await expect(
       api.analyzeEmail({ analyzeEmailRequest: { email: 'user@example.com' } })
-    ).rejects.toBeDefined();
+    ).rejects.toMatchObject({ response: expect.objectContaining({ status: 401 }) });
   });
 });

@@ -64,6 +64,6 @@ describe('FraudProtectionApi', () => {
 
     await expect(
       api.analyzeFraud({ analyzeFraudRequest: { email: 'user@example.com' } })
-    ).rejects.toBeDefined();
+    ).rejects.toMatchObject({ response: expect.objectContaining({ status: 429 }) });
   });
 });

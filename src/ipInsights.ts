@@ -18,10 +18,7 @@ export class IPInsights {
   public async analyze (request: AnalyzeIpRequest) {
     try {
         return await this.ipInsightsApi.analyzeIp({
-            analyzeIpRequest: {
-                ip: request.ip,
-                enableAI: request.enableAI,
-            }
+            analyzeIpRequest: request
         });
     } catch (error) {
         throw await toErrorResponse(error);
@@ -31,11 +28,7 @@ export class IPInsights {
   public async batchAnalyze (request: BatchAnalyzeIpsRequest) {
     try {
         return await this.ipInsightsApi.batchAnalyzeIps({
-            batchAnalyzeIpsRequest: {
-                ips: request.ips,
-                name: request.name,
-                enableAI: request.enableAI,
-            }
+            batchAnalyzeIpsRequest: request
         });
     } catch (error) {
         throw await toErrorResponse(error);

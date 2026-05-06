@@ -54,7 +54,7 @@ describe('EmailInsights', () => {
     MockedEmailInsightsApi.prototype.analyzeEmail = jest.fn().mockRejectedValue(new Error('API error'));
 
     const client = new EmailInsights({ apiKey: 'test-key' });
-    await expect(client.analyze({ email: 'bad@example.com' })).rejects.toBeDefined();
+    await expect(client.analyze({ email: 'bad@example.com' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'API error' });
   });
 
   it('batchAnalyze() returns response on success', async () => {
@@ -92,7 +92,7 @@ describe('EmailInsights', () => {
     MockedEmailInsightsApi.prototype.batchAnalyzeEmails = jest.fn().mockRejectedValue(new Error('API error'));
 
     const client = new EmailInsights({ apiKey: 'test-key' });
-    await expect(client.batchAnalyze({ emails: ['a@example.com'] })).rejects.toBeDefined();
+    await expect(client.batchAnalyze({ emails: ['a@example.com'] })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'API error' });
   });
 
   it('getBatchStatus() returns response on success', async () => {
@@ -110,7 +110,7 @@ describe('EmailInsights', () => {
     MockedEmailInsightsApi.prototype.getEmailBatchStatus = jest.fn().mockRejectedValue(new Error('Not found'));
 
     const client = new EmailInsights({ apiKey: 'test-key' });
-    await expect(client.getBatchStatus({ jobId: 'bad-id' })).rejects.toBeDefined();
+    await expect(client.getBatchStatus({ jobId: 'bad-id' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'Not found' });
   });
 
   it('createEmailBatchExport() returns export response on success', async () => {
@@ -134,7 +134,7 @@ describe('EmailInsights', () => {
     MockedEmailInsightsApi.prototype.createEmailBatchExport = jest.fn().mockRejectedValue(new Error('Not found'));
 
     const client = new EmailInsights({ apiKey: 'test-key' });
-    await expect(client.createEmailBatchExport({ jobId: 'bad-id' })).rejects.toBeDefined();
+    await expect(client.createEmailBatchExport({ jobId: 'bad-id' })).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'Not found' });
   });
 
   it('getEmailBatchExportStatus() returns status on success', async () => {
@@ -157,6 +157,6 @@ describe('EmailInsights', () => {
     const client = new EmailInsights({ apiKey: 'test-key' });
     await expect(
       client.getEmailBatchExportStatus({ jobId: 'bad-id', exportId: 'bad-exp' })
-    ).rejects.toBeDefined();
+    ).rejects.toMatchObject({ errorCode: 'REQUEST_ERROR', errorMessage: 'Not found' });
   });
 });

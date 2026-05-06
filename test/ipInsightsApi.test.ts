@@ -64,6 +64,6 @@ describe('IPInsightsApi', () => {
 
     await expect(
       api.analyzeIp({ analyzeIpRequest: { ip: '8.8.8.8' } })
-    ).rejects.toBeDefined();
+    ).rejects.toMatchObject({ response: expect.objectContaining({ status: 403 }) });
   });
 });

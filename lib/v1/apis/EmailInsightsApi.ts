@@ -219,7 +219,7 @@ export class EmailInsightsApi extends runtime.BaseAPI implements EmailInsightsAp
             headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
         }
 
-        let urlPath = `/email/analyze`;
+        const urlPath = `/email/analyze`;
 
         const response = await this.request({
             path: urlPath,
@@ -263,7 +263,7 @@ export class EmailInsightsApi extends runtime.BaseAPI implements EmailInsightsAp
             headerParameters["x-opportify-token"] = await this.configuration.apiKey("x-opportify-token"); // opportifyToken authentication
         }
 
-        let urlPath = `/email/batch`;
+        const urlPath = `/email/batch`;
 
         const response = await this.request({
             path: urlPath,
