@@ -21,8 +21,7 @@
     "module": "ESNext",
     "target": "es2018",
     "sourceMap": true,
-    "outDir": "./dist",
-    "types": ["node-fetch"]
+    "outDir": "./dist"
   },
   "include": ["src/**/*.ts", "lib/**/*.ts"],
   "exclude": ["node_modules", "dist", "coverage"]

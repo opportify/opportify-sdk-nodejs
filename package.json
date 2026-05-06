@@ -57,10 +57,8 @@
     "ts-jest": "^29.2.0",
     "typescript": "^5.7.2"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.2",
-    "user": "^0.0.0"
-  },
+  "sideEffects": false,
+  "dependencies": {},
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
@@ -69,9 +67,6 @@
       "ts-jest": {
         "tsconfig": "tsconfig.test.json"
       }
-    },
-    "moduleNameMapper": {
-      "^node-fetch$": "<rootDir>/node_modules/node-fetch/src/index.js"
     }
   }
 }
