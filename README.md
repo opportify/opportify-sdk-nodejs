@@ -45,7 +45,7 @@ All products share a common API key and the same SDK installation.
 
 ## Requirements
 
-Requires Node.js [v18 or later](https://nodejs.org/en/blog/release/v18.0.0). Node v22.x.x is recommended.
+Requires Node.js [v20 or later](https://nodejs.org/en/blog/release/v20.0.0). Node v22.x.x is recommended.
 
 ## Getting Started
 
