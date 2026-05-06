@@ -40,8 +40,8 @@ All products share a common API key and the same SDK installation.
 
 | Product | Base URL |
 |---------|----------|
-| Email & IP Insights | `https://api.opportify.ai/insights/v1/` |
-| Fraud Protection | `https://api.opportify.ai/intel/v1/` |
+| Email & IP Insights | `https://api.opportify.ai/insights/v1` |
+| Fraud Protection | `https://api.opportify.ai/intel/v1` |
 
 ## Requirements
 
@@ -124,7 +124,7 @@ async function analyzeFraud() {
       userIp: '3.1.122.82',
 
       // Contact details
-      phone1: '+1-800-555-0100',
+      phone1: '+18005550100',
       website: 'https://acme.example.com',
 
       // Submission context
@@ -266,7 +266,7 @@ async function exportEmailBatchResults() {
           'isDeliverable',
         ],
         filters: {
-          isDeliverable: 'true',
+          isDeliverable: 'yes',
           'riskReport.score': { min: 400 },
         },
       },
@@ -342,19 +342,21 @@ exportIpBatchResults();
 We strongly recommend wrapping all SDK calls in a try-catch. The SDK normalizes API errors into a typed `ErrorResponse` object:
 
 ```typescript
-import { EmailInsights, IPInsights, FraudProtection } from '@opportify/sdk-nodejs';
+import { EmailInsights } from '@opportify/sdk-nodejs';
 import type { ErrorResponse } from '@opportify/sdk-nodejs';
 
 const emailInsights = new EmailInsights({ apiKey: 'YOUR-API-KEY-HERE' });
 
-try {
-  const result = await emailInsights.analyze({ email: 'test@example.com' });
-} catch (error: unknown) {
-  const err = error as ErrorResponse;
-  // err.errorCode    — e.g. "HTTP_403", "HTTP_429", "REQUEST_ERROR"
-  // err.errorMessage — human-readable description
-  console.error(`[${err.errorCode}] ${err.errorMessage}`);
-}
+(async () => {
+  try {
+    const result = await emailInsights.analyze({ email: 'test@example.com' });
+  } catch (error: unknown) {
+    const err = error as ErrorResponse;
+    // err.errorCode    — e.g. "HTTP_403", "HTTP_429", "REQUEST_ERROR"
+    // err.errorMessage — human-readable description
+    console.error(`[${err.errorCode}] ${err.errorMessage}`);
+  }
+})();
 ```
 
 | Field | Type | Example |
