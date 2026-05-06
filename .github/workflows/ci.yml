@@ -5,28 +5,25 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
-  lint:
-    name: Lint
+  typecheck:
+    name: Type Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Create worktree
-        run: git worktree add ${{ runner.temp }}/worktree ${{ github.sha }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: 'npm'
 
       - name: Install dependencies
-        working-directory: ${{ runner.temp }}/worktree
         run: npm ci
 
       - name: TypeScript type check
-        working-directory: ${{ runner.temp }}/worktree
         run: npx tsc --noEmit
 
   test:
@@ -34,20 +31,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Create worktree
-        run: git worktree add ${{ runner.temp }}/worktree ${{ github.sha }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: 'npm'
 
       - name: Install dependencies
-        working-directory: ${{ runner.temp }}/worktree
         run: npm ci
 
       - name: Run unit tests
-        working-directory: ${{ runner.temp }}/worktree
         run: npm test
