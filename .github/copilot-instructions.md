@@ -91,34 +91,65 @@ test/         Jest test suite
 
 ---
 
-## 5. Git Workflow — Parallel Agent Support
+## 5. Git Workflow — Worktree, Branch, PR
 
-This repository uses **git worktrees** to allow multiple AI agents (and developers)
-to work concurrently without interfering with each other.
+> **These are non-negotiable rules. No exceptions for any contributor — human or AI.**
 
-- **Always work in a dedicated worktree** — never commit directly to `main` from a
-  shared or default checkout when running automated agents.
-- Create a new worktree + branch for each self-contained unit of work:
-  ```bash
-  git worktree add ../opportify-sdk-nodejs-<feature> -b <type>/<short-description>
-  ```
-- Branch naming: `feat/`, `fix/`, `chore/`, `docs/`, `refactor/` prefixes.
-- Keep branches focused and short-lived. One concern per PR.
-- Remove the worktree once the PR is merged:
-  ```bash
-  git worktree remove ../opportify-sdk-nodejs-<feature>
-  ```
+### 5.1 Never commit directly to `main`
+
+`main` is a protected branch. **No one pushes to it directly.** Every single change —
+no matter how small — must go through a pull request that is reviewed and approved
+before it is merged.
+
+### 5.2 Always work in a dedicated worktree
+
+This repository uses **git worktrees** so that multiple contributors and AI agents
+can work concurrently without stepping on each other.
+
+Every unit of work follows this exact sequence:
+
+```
+1. Create a worktree + branch  →  2. Do the work  →  3. Open a PR against main  →  4. Review & approve  →  5. Merge  →  6. Remove worktree
+```
+
+```bash
+# 1. Create worktree and branch
+git worktree add ../opportify-sdk-nodejs-<short-name> -b <type>/<short-description>
+
+# 2. Work inside the worktree
+cd ../opportify-sdk-nodejs-<short-name>
+
+# 3. Push and open a PR targeting main
+git push -u origin <type>/<short-description>
+gh pr create --base main ...
+
+# 6. After merge, clean up
+git worktree remove ../opportify-sdk-nodejs-<short-name>
+git branch -d <type>/<short-description>
+```
+
+### 5.3 Branch naming
+
+| Prefix | When to use |
+|---|---|
+| `feat/` | New feature or capability |
+| `fix/` | Bug fix |
+| `chore/` | Tooling, config, dependencies, CI |
+| `docs/` | Documentation only |
+| `refactor/` | Code restructure with no behaviour change |
+
+Keep branch names lowercase and hyphen-separated. One concern per branch.
 
 ---
 
 ## 6. Pull Requests — Required Process
 
-> **Every pull request MUST use the repository's PR template.**
-> The template is located at `.github/PULL_REQUEST_TEMPLATE.md` and is loaded
-> automatically by GitHub when you open a new PR.
+> **All pull requests MUST target `main` as the base branch.**
+> **All pull requests MUST be reviewed and approved before merging.**
+> **All pull requests MUST use the repository's PR template — no exceptions.**
 
-**Do not skip or abbreviate any section of the template.** Each section exists for
-a reason:
+The template at `.github/PULL_REQUEST_TEMPLATE.md` is loaded automatically by
+GitHub. Do not delete, skip, or abbreviate any section.
 
 | Section | Why it matters |
 |---|---|
@@ -130,12 +161,13 @@ a reason:
 | Related issues | Closes the feedback loop on tracked work |
 
 **Additional PR rules:**
+- Target branch must always be `main`.
+- At least one human review and approval is required before merge.
+- All CI checks must pass before merge.
 - PRs that modify the public API (`src/index.ts` exports or any `src/*.ts` public
-  type) must explicitly document the impact in "Are there any breaking changes?"
-- Do not merge a PR that has failing CI checks.
+  type) must explicitly document breaking-change impact.
 - Keep diffs focused — unrelated formatting or refactor changes belong in a
   separate PR.
-- Require at least one human review before merging to `main`.
 
 ---
 
@@ -178,11 +210,14 @@ git diff --cached | grep -iE "(api_key|secret|password|token)" && echo "STOP - r
 
 ## 10. What NOT to Do
 
+- **Do not commit or push directly to `main`** — ever, for any reason.
+- **Do not open a PR against any branch other than `main`.**
+- **Do not merge a PR without at least one review and approval.**
+- **Do not open a PR with an incomplete or missing PR template.**
 - Do not edit files under `lib/` — they are auto-generated.
 - Do not commit `dist/` or `node_modules/`.
-- Do not bypass CI or push directly to `main`.
+- Do not bypass or ignore failing CI checks.
 - Do not introduce breaking changes without a major version bump and explicit
   documentation.
 - Do not use `console.log` for debugging in production code — use structured error
   propagation instead.
-- Do not open a PR with an incomplete or missing PR template.
