@@ -7,7 +7,7 @@ import { toErrorResponse } from './errorUtils';
 export class EmailInsights {
   private emailInsightsApi: EmailInsightsApi;
 
-  constructor(config) {
+  constructor(config: { apiKey: string; basePath?: string }) {
       const defaultConfig = new Configuration({
           apiKey: config.apiKey,
           basePath: config.basePath,
@@ -23,7 +23,7 @@ export class EmailInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async batchAnalyze (request: BatchAnalyzeEmailsRequest) {
     try {
@@ -33,7 +33,7 @@ export class EmailInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
   
   public async getBatchStatus (request: GetEmailBatchStatusRequest ) {
     try {
@@ -41,7 +41,7 @@ export class EmailInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async createEmailBatchExport (request: CreateEmailBatchExportRequest) {
     try {
@@ -49,7 +49,7 @@ export class EmailInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async getEmailBatchExportStatus (request: GetEmailBatchExportStatusRequest ) {
     try {
@@ -57,5 +57,5 @@ export class EmailInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 }

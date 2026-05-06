@@ -27,6 +27,8 @@ models/BatchAnalyzeIps400Response.ts
 models/BatchAnalyzeIpsRequest.ts
 models/BlockListed.ts
 models/CreateEmailBatchExport400Response.ts
+models/CreateEmailBatchExport400ResponseOneOf.ts
+models/CreateEmailBatchExport400ResponseOneOf1.ts
 models/CreateEmailBatchExport403Response.ts
 models/CreateEmailBatchExport404Response.ts
 models/CreateEmailBatchExport409Response.ts

@@ -7,7 +7,7 @@ import { toErrorResponse } from './errorUtils';
 export class IPInsights {
   private ipInsightsApi: IPInsightsApi;
 
-  constructor(config) {
+  constructor(config: { apiKey: string; basePath?: string }) {
       const defaultConfig = new Configuration({
           apiKey: config.apiKey,
           basePath: config.basePath,
@@ -18,28 +18,22 @@ export class IPInsights {
   public async analyze (request: AnalyzeIpRequest) {
     try {
         return await this.ipInsightsApi.analyzeIp({
-            analyzeIpRequest: {
-                ip: request.ip,
-                enableAI: request.enableAI,
-            }
+            analyzeIpRequest: request
         });
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async batchAnalyze (request: BatchAnalyzeIpsRequest) {
     try {
         return await this.ipInsightsApi.batchAnalyzeIps({
-            batchAnalyzeIpsRequest: {
-                ips: request.ips,
-                enableAI: request.enableAI,
-            }
+            batchAnalyzeIpsRequest: request
         });
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async getBatchStatus (request: GetIpBatchStatusRequest ) {
     try {
@@ -47,7 +41,7 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
   
   public async createIpBatchExport (request: CreateIpBatchExportRequest) {
     try {
@@ -55,7 +49,7 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 
   public async getIpBatchExportStatus (request: GetIpBatchExportStatusRequest ) {
     try {
@@ -63,5 +57,5 @@ export class IPInsights {
     } catch (error) {
         throw await toErrorResponse(error);
     }
-  };
+  }
 }

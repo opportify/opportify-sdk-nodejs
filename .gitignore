@@ -21,3 +21,5 @@ coverage/
 node_modules
 dist
 opportify-sdk-nodejs-1.0.0.tgz
+openapi-*.yaml
+openapi-*.yml
