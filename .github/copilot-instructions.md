@@ -67,7 +67,14 @@ test/         Jest test suite
 
 ## 3. TypeScript Standards
 
-- Strict mode is enabled (`tsconfig.json`). Do not relax compiler options.
+- `tsconfig.json` currently has `"strict": false`. Do not set it to `true` without
+  first auditing the auto-generated `lib/` code for compatibility — that work belongs
+  in a dedicated PR. Do not weaken any other compiler option that is already enabled
+  (e.g., `allowUnreachableCode`, `allowUnusedLabels`, `forceConsistentCasingInFileNames`,
+  `isolatedModules`).
+- Write all new `src/` code as if strict mode were on: avoid implicit `any`, use
+  explicit return types on all public functions, and never rely on behaviour that
+  strict mode would flag.
 - Prefer `interface` for public API shapes; use `type` for unions, intersections,
   and utility types.
 - Avoid `any`. Use `unknown` and narrow with type guards when the shape is
@@ -177,8 +184,20 @@ GitHub. Do not delete, skip, or abbreviate any section.
 - **Breaking public API changes** → major bump.
 - **New backwards-compatible features** → minor bump.
 - **Bug fixes and internal changes** → patch bump.
-- Do not bump `package.json` version manually; the release workflow handles it
-  based on PR labels and the release drafter configuration.
+
+**Release process (manual):**
+1. Update the `version` field in `package.json` following the rules above.
+2. Open a PR with the version bump (use `chore/` prefix, e.g. `chore/bump-v1.2.0`).
+3. Once merged to `main`, create a GitHub Release (tag + release notes). The
+   release drafter (`.github/workflows/main.yml`) auto-generates draft release
+   notes from merged PR titles — use that draft as a starting point.
+4. Publishing the GitHub Release triggers `.github/workflows/publish.yml`, which
+   builds and publishes the package to npm using the version already committed in
+   `package.json`.
+
+> No automated tooling bumps the version — contributors are responsible for
+> choosing the correct version number and committing it before the release is
+> published.
 
 ---
 
