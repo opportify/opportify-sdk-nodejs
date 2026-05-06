@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create worktree
+        run: git worktree add ${{ runner.temp }}/worktree ${{ github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        working-directory: ${{ runner.temp }}/worktree
+        run: npm ci
+
+      - name: TypeScript type check
+        working-directory: ${{ runner.temp }}/worktree
+        run: npx tsc --noEmit
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create worktree
+        run: git worktree add ${{ runner.temp }}/worktree ${{ github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        working-directory: ${{ runner.temp }}/worktree
+        run: npm ci
+
+      - name: Run unit tests
+        working-directory: ${{ runner.temp }}/worktree
+        run: npm test
