@@ -2,7 +2,7 @@
   "name": "@opportify/sdk-nodejs",
   "author": "Opportify, Inc.",
   "description": "Opportify SDK for NodeJs",
-  "version": "0.6.1",
+  "version": "0.7.1",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -64,7 +64,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": ["**/test/**/*.test.ts"],
+    "testMatch": [
+      "**/test/**/*.test.ts"
+    ],
     "globals": {
       "ts-jest": {
         "tsconfig": "tsconfig.test.json"
