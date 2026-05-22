@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 /**
  * Post-build script: rewrites extensionless relative imports/exports in dist/esm
- * to include .js extensions.
+ * to include .js extensions, which Node.js native ESM requires at runtime.
  *
- * This fixes two distinct consumers:
+ * TypeScript emits bare relative specifiers (e.g. './foo') even when targeting
+ * ESNext. Node.js native ESM resolution requires the full file extension, so
+ * every './foo' must become './foo.js' in the final output.
  *
- *   1. Runtime (Node.js native ESM) — requires .js extensions in .js files.
- *   2. TypeScript consumers with moduleResolution "node16" / "nodenext" /
- *      "bundler" — requires .js extensions in .d.ts declaration files too,
- *      otherwise `tsc` cannot resolve the types and emits TS2307 errors.
- *
- * TypeScript emits bare relative specifiers (e.g. './foo') for both file
- * types even when targeting ESNext, so we must patch both after compilation.
+ * Only .js files are processed. .d.ts declaration files are intentionally left
+ * untouched — TypeScript resolves bare specifiers in .d.ts correctly for all
+ * common moduleResolution settings ("node", "node16", "bundler"), and rewriting
+ * them risks corrupting directory-index imports (e.g. '../lib/v1/models' →
+ * wrongly '../lib/v1/models.js' instead of '../lib/v1/models/index.js').
  */
 
 import { readdir, readFile, writeFile } from 'fs/promises';
-import { join, extname } from 'path';
+import { join, extname, relative } from 'path';
 import { fileURLToPath } from 'url';
 
 const ESM_DIR = join(fileURLToPath(new URL('.', import.meta.url)), '../dist/esm');
@@ -79,7 +79,7 @@ async function processDir(dir) {
       const { result, changed } = rewrite(source);
       if (changed) {
         await writeFile(fullPath, result, 'utf8');
-        console.log(`  fixed: ${fullPath.replace(process.cwd() + '/', '')}`);
+        console.log(`  fixed: ${relative(process.cwd(), fullPath)}`);
         filesFixed++;
       }
     }
