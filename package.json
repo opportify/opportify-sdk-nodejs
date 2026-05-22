@@ -43,9 +43,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json",
+    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json && node scripts/add-js-extensions.mjs",
     "build:cjs": "tsc -b ./tsconfig.cjs.json",
-    "build:es": "tsc -b ./tsconfig.esm.json",
+    "build:es": "tsc -b ./tsconfig.esm.json && node scripts/add-js-extensions.mjs",
     "test": "jest"
   },
   "devDependencies": {
