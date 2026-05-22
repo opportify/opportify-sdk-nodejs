@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 /**
  * Post-build script: rewrites extensionless relative imports/exports in dist/esm
- * to include .js extensions, which Node.js ESM requires.
+ * to include .js extensions.
  *
- * TypeScript emits bare relative specifiers (e.g. './foo') even when targeting
- * ESNext. Node.js native ESM resolution requires the full file extension, so
- * every './foo' must become './foo.js' in the final output.
+ * This fixes two distinct consumers:
+ *
+ *   1. Runtime (Node.js native ESM) — requires .js extensions in .js files.
+ *   2. TypeScript consumers with moduleResolution "node16" / "nodenext" /
+ *      "bundler" — requires .js extensions in .d.ts declaration files too,
+ *      otherwise `tsc` cannot resolve the types and emits TS2307 errors.
+ *
+ * TypeScript emits bare relative specifiers (e.g. './foo') for both file
+ * types even when targeting ESNext, so we must patch both after compilation.
  */
 
 import { readdir, readFile, writeFile } from 'fs/promises';
@@ -14,7 +20,11 @@ import { fileURLToPath } from 'url';
 
 const ESM_DIR = join(fileURLToPath(new URL('.', import.meta.url)), '../dist/esm');
 
-/** Matches import/export … from './relative' or '../relative' (no extension). */
+/**
+ * Matches: import/export … from './relative' or '../relative' (no extension).
+ * Handles: named imports, namespace imports, re-exports, export *, import type,
+ * export type — all single-line forms that TypeScript emits in compiled output.
+ */
 const BARE_RELATIVE_RE =
   /((?:import|export)\s[^'"]*?from\s+['"])(\.{1,2}\/[^'"]+?)(['"])/g;
 
@@ -43,6 +53,13 @@ function rewrite(source) {
   return { result, changed };
 }
 
+/** Process .js and .d.ts files — skipping .js.map and .d.ts.map source maps. */
+function shouldProcess(filename) {
+  if (filename.endsWith('.d.ts')) return true;
+  if (filename.endsWith('.js') && !filename.endsWith('.d.ts')) return true;
+  return false;
+}
+
 async function processDir(dir) {
   let filesFixed = 0;
   const entries = await readdir(dir, { withFileTypes: true });
@@ -51,7 +68,7 @@ async function processDir(dir) {
     const fullPath = join(dir, entry.name);
     if (entry.isDirectory()) {
       filesFixed += await processDir(fullPath);
-    } else if (entry.isFile() && entry.name.endsWith('.js')) {
+    } else if (entry.isFile() && shouldProcess(entry.name)) {
       const source = await readFile(fullPath, 'utf8');
       const { result, changed } = rewrite(source);
       if (changed) {
