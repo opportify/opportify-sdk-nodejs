@@ -53,11 +53,17 @@ function rewrite(source) {
   return { result, changed };
 }
 
-/** Process .js and .d.ts files — skipping .js.map and .d.ts.map source maps. */
+/** Process only .js files — NOT .d.ts files.
+ *
+ * Rationale: TypeScript resolves bare relative imports in .d.ts declaration
+ * files correctly on its own for all common moduleResolution settings
+ * ("node", "node16", "bundler"). Rewriting .d.ts specifiers risks breaking
+ * directory-index imports (e.g. '../lib/v1/models' → '../lib/v1/models/index.js')
+ * if the script cannot distinguish a file import from a directory import.
+ * Leave .d.ts files untouched; only the runtime .js files need .js extensions.
+ */
 function shouldProcess(filename) {
-  if (filename.endsWith('.d.ts')) return true;
-  if (filename.endsWith('.js') && !filename.endsWith('.d.ts')) return true;
-  return false;
+  return filename.endsWith('.js') && !filename.endsWith('.d.ts');
 }
 
 async function processDir(dir) {
