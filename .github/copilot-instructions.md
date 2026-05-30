@@ -121,17 +121,17 @@ Every unit of work follows this exact sequence:
 
 ```bash
 # 1. Create worktree and branch
-git worktree add ../opportify-sdk-nodejs-<short-name> -b <type>/<short-description>
+git worktree add ../opportify-sdk-nodejs.worktrees/<short-name> -b <type>/<short-description>
 
 # 2. Work inside the worktree
-cd ../opportify-sdk-nodejs-<short-name>
+cd ../opportify-sdk-nodejs.worktrees/<short-name>
 
 # 3. Push and open a PR targeting main
 git push -u origin <type>/<short-description>
 gh pr create --base main ...
 
 # 6. After merge, clean up
-git worktree remove ../opportify-sdk-nodejs-<short-name>
+git worktree remove ../opportify-sdk-nodejs.worktrees/<short-name>
 git branch -d <type>/<short-description>
 ```
 
