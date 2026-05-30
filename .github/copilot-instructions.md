@@ -111,7 +111,8 @@ before it is merged.
 ### 5.2 Always work in a dedicated worktree
 
 This repository uses **git worktrees** so that multiple contributors and AI agents
-can work concurrently without stepping on each other.
+can work concurrently without stepping on each other. Each worktree lives under
+`../opportify-sdk-nodejs.worktrees/<short-name>`.
 
 Every unit of work follows this exact sequence:
 
@@ -121,17 +122,17 @@ Every unit of work follows this exact sequence:
 
 ```bash
 # 1. Create worktree and branch
-git worktree add ../opportify-sdk-nodejs-<short-name> -b <type>/<short-description>
+git worktree add ../opportify-sdk-nodejs.worktrees/<short-name> -b <type>/<short-description> origin/main
 
 # 2. Work inside the worktree
-cd ../opportify-sdk-nodejs-<short-name>
+cd ../opportify-sdk-nodejs.worktrees/<short-name>
 
 # 3. Push and open a PR targeting main
 git push -u origin <type>/<short-description>
 gh pr create --base main ...
 
 # 6. After merge, clean up
-git worktree remove ../opportify-sdk-nodejs-<short-name>
+git worktree remove ../opportify-sdk-nodejs.worktrees/<short-name>
 git branch -d <type>/<short-description>
 ```
 
